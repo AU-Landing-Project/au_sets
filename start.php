@@ -2,15 +2,21 @@
 
 require_once 'lib/hooks.php';
 
+define(AU_SETS_PINNED_RELATIONSHIP, 'au_sets_pinned_to');
+
 /**
  * our init process
  */
 function au_sets_init() {
+    
+  elgg_extend_view('css/elgg', 'au_sets/css');
+  elgg_extend_view('js/elgg', 'au_sets/js');
+  
   elgg_register_library('au_sets', elgg_get_plugins_path() . 'au_sets/lib/au_sets.php');
   
   //register our actions
   elgg_register_action("au_sets/save", dirname(__FILE__) . "/actions/save.php");
-  elgg_register_action("au_sets/delete", dirname(__FILE__) . "/actions/delete.php");
+  elgg_register_action("au_set/delete", dirname(__FILE__) . "/actions/delete.php");
   
   // register page handler
   elgg_register_page_handler('sets','au_sets_page_handler');
@@ -33,6 +39,9 @@ function au_sets_init() {
   // Add group option
   add_group_tool_option('sets', elgg_echo('au_sets:enablesets'), true);
   elgg_extend_view('groups/tool_latest', 'au_sets/group_module');
+  
+  elgg_register_ajax_view('au_sets/search');
+  elgg_register_ajax_view('au_sets/search_results');
 }
 
 
@@ -125,6 +134,32 @@ function au_sets_url_handler($entity) {
   $friendly_title = elgg_get_friendly_title($entity->title);
   
   return "sets/view/{$entity->guid}/$friendly_title";
+}
+
+
+/**
+ *  returns an array of accesses the user can write to sets
+ *	this is in start because we use it for a lot of hooks
+ * 
+ * @param type $user
+ * @return type
+ */
+function au_sets_get_write_accesses($user) {
+  if (!elgg_instanceof($user, 'user')) {
+	return array(ACCESS_PUBLIC);
+  }
+  
+  // write access is set using acl nomenclature
+  $access = get_access_array($user->getGUID());
+  
+  // remove private and friends ids
+  foreach (array(ACCESS_PRIVATE, ACCESS_FRIENDS) as $id) {
+	if (($key = array_search($id, $access)) !== false) {
+	  unset($access[$key]);
+	}
+  }
+  
+  return $access;
 }
 
 

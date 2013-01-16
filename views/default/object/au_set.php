@@ -7,6 +7,13 @@ if (!$set) {
 	return TRUE;
 }
 
+// see if we need to show just a mimimal view for ajax results
+// set in the view au_sets/search_results
+if ($vars['view_context'] == 'ajax_results') {
+  echo elgg_view('object/au_set/ajax_result', $vars);
+  return;
+}
+
 $owner = $set->getOwnerEntity();
 $container = $set->getContainerEntity();
 $categories = elgg_view('output/categories', $vars);

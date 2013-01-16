@@ -1,27 +1,26 @@
 <?php
 /**
- * Delete blog entity
+ * Delete au_set entity
  *
- * @package Blog
  */
 
-$blog_guid = get_input('guid');
-$blog = get_entity($blog_guid);
+$guid = get_input('guid');
+$set = get_entity($guid);
 
-if (elgg_instanceof($blog, 'object', 'blog') && $blog->canEdit()) {
-	$container = get_entity($blog->container_guid);
-	if ($blog->delete()) {
-		system_message(elgg_echo('blog:message:deleted_post'));
+if (elgg_instanceof($set, 'object', 'au_set') && $set->canEdit()) {
+	$container = $set->getContainerEntity();
+	if ($set->delete()) {
+		system_message(elgg_echo('au_sets:message:deleted'));
 		if (elgg_instanceof($container, 'group')) {
-			forward("blog/group/$container->guid/all");
+			forward("sets/group/$container->guid/all");
 		} else {
-			forward("blog/owner/$container->username");
+			forward("sets/owner/$container->username");
 		}
 	} else {
-		register_error(elgg_echo('blog:error:cannot_delete_post'));
+		register_error(elgg_echo('au_sets:error:cannot_delete'));
 	}
 } else {
-	register_error(elgg_echo('blog:error:post_not_found'));
+	register_error(elgg_echo('au_sets:error:not_found'));
 }
 
 forward(REFERER);

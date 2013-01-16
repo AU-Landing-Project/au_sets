@@ -1,13 +1,24 @@
 <?php
 
 function au_sets_entity_menu($hook, $type, $return, $params) {
-  if (is_array($return)) {
+  if (is_array($return) && elgg_instanceof($params['entity'], 'object', 'au_set')) {
 	foreach ($return as $key => $item) {
 	  if ($item->getName() == 'edit') {
 		$return[$key]->setHref('sets/edit/' . $params['entity']->getGUID());
 	  }
 	}
   }
+  
+  if (elgg_is_logged_in() && !elgg_in_context('widgets')) {
+	$text = '<span data-guid="' . $params['entity']->getGUID() . '">';
+	$text .= elgg_echo('au_sets:pin');
+	$text .= '</span>';
+	$pin = new ElggMenuItem('au_sets', $text, '#');
+	$pin->setLinkClass('au-sets-pin');
+
+	$return[] = $pin;
+  }
+  
   return $return;
 }
 
@@ -17,7 +28,7 @@ function au_sets_icon_url_override($hook, $type, $return, $params) {
   }
   
   // get our icon url
-  return elgg_get_site_url() . 'sets/icon/' . $params['entity']->getGUID() . '/' . $params['size'];
+  return elgg_get_site_url() . 'sets/icon/' . $params['entity']->getGUID() . '/' . $params['size'] . '/' . $params['entity']->icontime . '.jpg';
 }
 
 
@@ -93,22 +104,15 @@ function au_sets_permissions_check($hook, $type, $return, $params) {
 
   
   // check for friends special case
-  if ($params['entity']->write_access_id == ACCESS_FRIENDS) {
+  if ($set->write_access_id == ACCESS_FRIENDS) {
 	return $owner->isFriendsWith($user->getGUID());
   }
   
   // write access is set using acl nomenclature
-  $access = get_access_array($user->getGUID());
-  
-  // remove private and friends ids
-  foreach (array(ACCESS_PRIVATE, ACCESS_FRIENDS) as $id) {
-	if (($key = array_search($id, $access)) !== false) {
-	  unset($access[$key]);
-	}
-  }
+  $access = au_sets_get_write_accesses($user);
   
   // now we just look at remaining acls
-  if (in_array($params['entity']->write_access_id, $access)) {
+  if (in_array($set->write_access_id, $access)) {
 	return true;
   }
   
