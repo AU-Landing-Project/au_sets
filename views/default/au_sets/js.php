@@ -85,6 +85,10 @@ elgg.au_sets.closeModal = function() {
 }
 
 
+/**
+ *	handles the search interface
+ *
+ */
 elgg.au_sets.search = function() {
   $('.au-sets-query').live('keyup', function(e) {
 	var query = $(this).val();
@@ -132,6 +136,56 @@ elgg.au_sets.search = function() {
       }
     });
 	alert(au_set_request.toSource());
+  });
+}
+
+/**
+ *	handles the pin action
+ *
+ */
+elgg.au_sets.pin = function() {
+  $('.au-set-result').live('click', function(e) {
+	e.preventDefault();
+	var set_guid = $(this).attr('data-set');
+	var entity_guid = $(this).attr('data-entity');
+	
+	// let the user know we're doing something
+	// save the html in a var until we're done in case we need to revert
+	// then we'll empty it and put in a throbber
+	var entity = $(this);
+	var html = entity.html();
+	entity.addClass('au-sets-throbber');
+	entity.html('');
+	
+	//something went wrong, lets put the html back
+	elgg.action('au_sets/pin', {
+      timeout: 120000, //2 min
+      data: {
+        set_guid: set_guid,
+		entity_guid: entity_guid
+      },
+      success: function(result, success, xhr){
+		if (result.status == 0) {
+		  entity.fadeOut(1500);
+		}
+		else {
+		  entity.removeClass('au-sets-throbber');
+		  entity.html(html);
+		}
+      },
+      error: function(result, response, xhr) {
+		entity.removeClass('au-sets-throbber');
+        if (response == 'timeout') {
+          elgg.register_error(elgg.echo('au_sets:error:timeout'));
+		  entity.html(html);
+        }
+		else {
+		  elgg.register_error(elgg.echo('au_sets:error:generic'));
+		  entity.html(html);
+		}
+      }
+	});
+	
   });
 }
 

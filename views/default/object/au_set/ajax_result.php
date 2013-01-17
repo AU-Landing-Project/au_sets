@@ -1,6 +1,7 @@
 <?php
 
 $set = elgg_extract('entity', $vars, FALSE);
+$entity_guid = elgg_extract('target_entity_guid', $vars, false);
 
 if (!$set) {
 	return TRUE;
@@ -19,7 +20,7 @@ if ($owner) {
 	));
 }
 
-$date = elgg_view_friendly_time($vars['entity']->time_created);
+$date = elgg_view_friendly_time($set->time_created);
 
 $body .= elgg_view('output/longtext', array('value' => $owner_link . '&nbsp;' . $date, 'class' => 'elgg-subtext'));
 
@@ -33,6 +34,6 @@ $pin_link = elgg_view('output/url', array(
 
 $image_alt = array('image_alt' => $pin_link);
 
-echo '<div class="au-set-result" data-guid="' . $set->getGUID() . '">';
+echo '<div class="au-set-result" data-set="' . $set->getGUID() . '" data-entity="' . $entity_guid . '">';
 echo elgg_view_image_block($icon, $body);
 echo '</div>';

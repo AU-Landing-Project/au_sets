@@ -15,7 +15,6 @@ if ($vars['view_context'] == 'ajax_results') {
 }
 
 $owner = $set->getOwnerEntity();
-$container = $set->getContainerEntity();
 $categories = elgg_view('output/categories', $vars);
 $excerpt = $set->excerpt;
 if (!$excerpt) {
@@ -56,7 +55,7 @@ $metadata = elgg_view_menu('entity', array(
 	'class' => 'elgg-menu-hz',
 ));
 
-$subtitle = "$date $comments_link $categories";
+$subtitle = "$link $date $comments_link $categories";
 
 // do not show the metadata and controls in widget view
 if (elgg_in_context('widgets')) {
@@ -64,26 +63,39 @@ if (elgg_in_context('widgets')) {
 }
 
 if ($full) {
+  
+  $icon = elgg_view_entity_icon($set, 'large');
 
-	$body = elgg_view('output/longtext', array(
-		'value' => $set->description,
-		'class' => 'set-description',
-	));
+  $content = elgg_view('output/longtext', array(
+	'value' => $set->description,
+	'class' => 'set-description',
+  ));
 
-	$params = array(
-		'entity' => $set,
-		'title' => false,
-		'metadata' => $metadata,
-		'subtitle' => $subtitle,
-	);
-	$params = $params + $vars;
-	$summary = elgg_view('object/elements/summary', $params);
+  $params = array(
+	'entity' => $set,
+	'title' => false,
+	'metadata' => $metadata,
+	'subtitle' => $subtitle,
+	'content' => $content
+  );
+  
+  $params = $params + $vars;
+  $summary = elgg_view('object/elements/summary', $params);
+  
+  $body = elgg_list_entities_from_relationship(array(
+	  'relationship_guid' => $set->guid,
+	  'relationship' => AU_SETS_PINNED_RELATIONSHIP,
+	  'inverse_relationship' => true,
+	  'full_view' => false,
+	  'limit' => 10,
+	  'order_by' => 'r.time_created DESC'
+  ));
 
-	echo elgg_view('object/elements/full', array(
-		'summary' => $summary,
-		'icon' => $owner_icon,
-		'body' => $body,
-	));
+  echo elgg_view('object/elements/full', array(
+	'summary' => $summary,
+	'icon' => $icon,
+	'body' => $body,
+  ));
 
 } else {
 	// brief view

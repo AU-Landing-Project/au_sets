@@ -7,7 +7,6 @@ if (!elgg_is_logged_in() || !$vars['entity']) {
   return;
 }
 
-$user = elgg_get_logged_in_user_entity();
 
 echo elgg_view('output/url', array(
 	'text' => '<span class="elgg-icon elgg-icon-delete-alt"></span>',

@@ -27,8 +27,12 @@ $dbprefix = elgg_get_config('dbprefix');
 $options = array(
 	'types' => array('object'),
 	'subtypes' => array('au_set'),
+	'pagination' => false,
 	'limit' => 5,
-	'view_context' => 'ajax_results'
+	
+	// custom values to pass through to $vars for display
+	'view_context' => 'ajax_results',
+	'target_entity_guid' => $entity->guid
 );
 
 $metadata_name_id = get_metastring_id('write_access_id');
