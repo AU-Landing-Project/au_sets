@@ -18,6 +18,7 @@ function au_sets_init() {
   elgg_register_action("au_sets/save", dirname(__FILE__) . "/actions/save.php");
   elgg_register_action("au_set/delete", dirname(__FILE__) . "/actions/delete.php");
   elgg_register_action("au_sets/pin", dirname(__FILE__) . "/actions/pin.php");
+  elgg_register_action("au_sets/unpin", dirname(__FILE__) . "/actions/unpin.php");
   
   // register page handler
   elgg_register_page_handler('sets','au_sets_page_handler');

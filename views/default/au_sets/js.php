@@ -18,7 +18,7 @@ elgg.au_sets.init = function() {
 	elgg.au_sets.pin();
 	
 	// Initialize unpin click
-	elgg.au_sets.unpin;
+	elgg.au_sets.unpin();
 
 };
 
@@ -171,6 +171,59 @@ elgg.au_sets.pin = function() {
       success: function(result, success, xhr){
 		if (result.status == 0) {
 		  entity.fadeOut(1500);
+		}
+		else {
+		  entity.removeClass('au-sets-throbber');
+		  entity.html(html);
+		}
+      },
+      error: function(result, response, xhr) {
+		entity.removeClass('au-sets-throbber');
+        if (response == 'timeout') {
+          elgg.register_error(elgg.echo('au_sets:error:timeout'));
+		  entity.html(html);
+        }
+		else {
+		  elgg.register_error(elgg.echo('au_sets:error:generic'));
+		  entity.html(html);
+		}
+      }
+	});
+	
+  });
+}
+
+
+elgg.au_sets.unpin = function() {
+  $('.au-sets-unpin').live('click', function(e) {
+	e.preventDefault();
+	
+	if (!confirm(elgg.echo('au_sets:unpin:confirm'))) {
+	  return;
+	}
+	
+	var span = $(this).children('span').eq(0);
+	var entity_guid = span.attr('data-guid');
+	var set_guid = $('.au-sets-guid-markup').attr('data-set');
+	var entity = $(this).parents('.elgg-item').eq(0);
+	
+	// store html in case of failure
+	var html = entity.html();
+	
+	// make it a throbber for feedback
+	entity.html('');
+	entity.addClass('au-sets-throbber');
+	
+	//something went wrong, lets put the html back
+	elgg.action('au_sets/unpin', {
+      timeout: 120000, //2 min
+      data: {
+        set_guid: set_guid,
+		entity_guid: entity_guid
+      },
+      success: function(result, success, xhr){
+		if (result.status == 0) {
+		  entity.fadeOut(1500, function() { entity.remove(); });
 		}
 		else {
 		  entity.removeClass('au-sets-throbber');
