@@ -21,12 +21,14 @@ if (!$excerpt) {
 	$excerpt = elgg_get_excerpt($set->description);
 }
 
-$icon = elgg_view_entity_icon($set, 'small');
+$icon = elgg_view_entity_icon($set, 'tiny');
 $link = elgg_view('output/url', array(
 	'href' => "sets/owner/$owner->username",
 	'text' => $owner->name,
 	'is_trusted' => true,
 ));
+
+$authored_by = elgg_echo('au_sets:authored_by', array($link));
 
 $date = elgg_view_friendly_time($set->time_created);
 
@@ -55,7 +57,7 @@ $metadata = elgg_view_menu('entity', array(
 	'class' => 'elgg-menu-hz',
 ));
 
-$subtitle = "$link $date $comments_link $categories";
+$subtitle = "$authored_by $date $comments_link $categories";
 
 // do not show the metadata and controls in widget view
 if (elgg_in_context('widgets')) {
@@ -82,6 +84,8 @@ if ($full) {
   $params = $params + $vars;
   $summary = elgg_view('object/elements/summary', $params);
   
+  $context = elgg_get_context();
+  elgg_set_context('au_sets_profile');
   $body = elgg_list_entities_from_relationship(array(
 	  'relationship_guid' => $set->guid,
 	  'relationship' => AU_SETS_PINNED_RELATIONSHIP,
@@ -90,6 +94,11 @@ if ($full) {
 	  'limit' => 10,
 	  'order_by' => 'r.time_created DESC'
   ));
+  
+  // add invisible markup to contain set guid for js
+  $body .= '<div class="au-sets-guid-markup" data-set="' . $set->guid . '"></div>';
+  
+  elgg_set_context($context);
 
   echo elgg_view('object/elements/full', array(
 	'summary' => $summary,

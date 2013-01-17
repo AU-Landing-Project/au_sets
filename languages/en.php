@@ -26,6 +26,8 @@ $english = array(
 	'au_sets:search' => "Search for a Set",
 	'au_sets:search:help' => "Type a word or words that appears in the title or description of the Set you are looking for",
 	'au_sets:success:pinned' => "Content has been pinned",
+	'au_sets:authored_by' => "By %s",
+	'au_sets:unpin' => 'UnPin',
 	
 	// Editing
 	'au_sets:add' => 'Add Set',

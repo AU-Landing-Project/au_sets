@@ -13,10 +13,22 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
 	$text = '<span data-guid="' . $params['entity']->getGUID() . '">';
 	$text .= elgg_echo('au_sets:pin');
 	$text .= '</span>';
-	$pin = new ElggMenuItem('au_sets', $text, '#');
+	$pin = new ElggMenuItem('au_sets_pin', $text, '#');
 	$pin->setLinkClass('au-sets-pin');
 
 	$return[] = $pin;
+  }
+  
+  // add unpin link if we're displaying the entity on a set profile
+  if (elgg_get_context() == 'au_sets_profile') {
+	
+	$text = '<span data-guid="' . $params['entity']->getGUID() . '">';
+	$text .= elgg_echo('au_sets:unpin');
+	$text .= '</span>';
+	$unpin = new ElggMenuItem('au_sets:unpin', $text, '#');
+	$unpin->setLinkClass('au-sets-unpin');
+	
+	$return[] = $unpin;
   }
   
   return $return;

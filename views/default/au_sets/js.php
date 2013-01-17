@@ -7,7 +7,7 @@ elgg.au_sets.init = function() {
 
     // Initialize pin click
     elgg.au_sets.pinclick();
-	
+		
 	// Initialize pin modal close
 	elgg.au_sets.closeModal();
 	
@@ -16,6 +16,10 @@ elgg.au_sets.init = function() {
 	
 	// Initialize the pin action
 	elgg.au_sets.pin();
+	
+	// Initialize unpin click
+	elgg.au_sets.unpin;
+
 };
 
 
