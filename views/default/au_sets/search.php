@@ -33,6 +33,10 @@ echo elgg_view('output/longtext', array(
 	'class' => 'elgg-subtext'
 ));
 
+echo '<br>';
+
+echo '<input type="checkbox" name="mine" value="1" checked="checked"> ' . elgg_echo('au_sets:search:mine');
+
 echo elgg_view('output/url', array(
 	'text' => elgg_echo('close'),
 	'href' => '#',

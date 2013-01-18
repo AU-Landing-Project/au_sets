@@ -53,8 +53,14 @@ $friends_in = "SELECT guid_one FROM {$dbprefix}entity_relationships WHERE guid_t
 // @TODO - is there any way to make these granular?
 $options['wheres'][] = "(ms.string IN({$write_in}) OR (ms.string = '" . ACCESS_FRIENDS . "' AND e.owner_guid IN({$friends_in})) OR (e.owner_guid = {$user->guid}))";
 	
+/*
+ * @TODO - Jon wants everything shown, thinks it's better UX
+ * leaving here in case he changes his mind
+ * 
 // don't show anything already pinned
 $options['wheres'][] = "NOT EXISTS ( SELECT 1 FROM {$dbprefix}entity_relationships WHERE guid_two = e.guid AND guid_one = {$entity->guid} AND relationship = '" . AU_SETS_PINNED_RELATIONSHIP . "' )";
+ * 
+ */
 
 // prevent a set from pinning itself
 $options['wheres'][] = "e.guid != {$entity->guid}";

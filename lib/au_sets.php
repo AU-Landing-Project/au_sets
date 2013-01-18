@@ -252,6 +252,17 @@ function au_sets_get_page_content_edit($page, $guid = 0) {
 	return $return;	
 }
 
+/**
+ * Returns bool whether the entity is already pinned
+ * assumes $entity and $set are valid objects
+ * 
+ * @param type $entity
+ * @param type $set
+ */
+function au_sets_is_pinned($entity, $set) {
+  return check_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
+}
+
 
 /**
  * Pull together set variables for the save form
@@ -302,20 +313,34 @@ function au_sets_prepare_form_vars($set = NULL) {
  * @param type $user
  */
 function au_sets_pin_entity($entity, $set, $user = NULL) {
+  
+  if (!au_sets_pin_sanity_check($entity, $set, $user)) {
+	return add_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
+  }
+  
+  return false;
+}
+
+/**
+ * Checks to make sure there are no errors with pinning/unpinning entities
+ * 
+ * @param type $entity
+ * @param type $set
+ * @param type $user
+ * @return boolean
+ */
+function au_sets_pin_sanity_check($entity, $set, $user = NULL) {
   //make sure we have an entity
   if (!elgg_instanceof($entity)) {
-	register_error(elgg_echo('au_sets:error:invalid:entity'));
-	return false;
+	return elgg_echo('au_sets:error:invalid:entity');
   }
   
   if (!elgg_instanceof($set, 'object', 'au_set')) {
-	register_error(elgg_echo('au_sets:error:invalid:set'));
-	return false;
+	return elgg_echo('au_sets:error:invalid:set');
   }
   
   if ($set->getGUID() == $entity->getGUID()) {
-	register_error(elgg_echo('au_sets:error:recursive:pin'));
-	return false;
+	return elgg_echo('au_sets:error:recursive:pin');
   }
   
   if (!elgg_instanceof($user, 'user')) {
@@ -323,20 +348,16 @@ function au_sets_pin_entity($entity, $set, $user = NULL) {
   }
   
   if (!$user) {
-	register_error(elgg_echo('au_sets:error:invalid:user'));
-	return false;
+	return elgg_echo('au_sets:error:invalid:user');
   }
   
   // make sure we can edit the set
   if (!$set->canEdit($user->guid)) {
-	register_error(elgg_echo('au_sets:error:cannot:edit'));
-	return false;
+	return elgg_echo('au_sets:error:cannot:edit');
   }
   
-  // we can pin it now
-  return add_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
+  return false;
 }
-
 
 /**
  * Pins an entity to a given set
@@ -346,32 +367,10 @@ function au_sets_pin_entity($entity, $set, $user = NULL) {
  * @param type $user
  */
 function au_sets_unpin_entity($entity, $set, $user = NULL) {
-  //make sure we have an entity
-  if (!elgg_instanceof($entity)) {
-	register_error(elgg_echo('au_sets:error:invalid:entity'));
-	return false;
+  
+  if (!au_sets_pin_sanity_check($entity, $set, $user)) {
+	return remove_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
   }
   
-  if (!elgg_instanceof($set, 'object', 'au_set')) {
-	register_error(elgg_echo('au_sets:error:invalid:set'));
-	return false;
-  }
-  
-  if (!elgg_instanceof($user, 'user')) {
-	$user = elgg_get_logged_in_user_entity();
-  }
-  
-  if (!$user) {
-	register_error(elgg_echo('au_sets:error:invalid:user'));
-	return false;
-  }
-  
-  // make sure we can edit the set
-  if (!$set->canEdit($user->guid)) {
-	register_error(elgg_echo('au_sets:error:cannot:edit'));
-	return false;
-  }
-  
-  // we can unpin it now
-  return remove_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
+  return false;
 }

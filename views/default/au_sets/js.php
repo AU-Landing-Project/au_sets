@@ -170,7 +170,7 @@ elgg.au_sets.pin = function() {
       },
       success: function(result, success, xhr){
 		if (result.status == 0) {
-		  entity.fadeOut(1500);
+		  entity.fadeOut(1500, function() { entity.remove(); });
 		}
 		else {
 		  entity.removeClass('au-sets-throbber');

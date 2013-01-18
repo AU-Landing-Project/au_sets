@@ -25,6 +25,7 @@ function au_sets_init() {
   
   elgg_register_plugin_hook_handler('permissions_check', 'object', 'au_sets_permissions_check');
   elgg_register_plugin_hook_handler('register', 'menu:entity', 'au_sets_entity_menu');
+  elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'au_sets_owner_block_menu');
   
   // notifications
   register_notification_object('object', 'au_set', elgg_echo('au_sets:newset'));

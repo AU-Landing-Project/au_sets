@@ -20,9 +20,15 @@ if ($owner) {
 	));
 }
 
+$ingroup = '';
+$container = $set->getContainerEntity();
+if (elgg_instanceof($container, 'group')) {
+  $ingroup = elgg_echo('au_sets:ingroup', array($container->name));
+}
+
 $date = elgg_view_friendly_time($set->time_created);
 
-$body .= elgg_view('output/longtext', array('value' => $owner_link . '&nbsp;' . $date, 'class' => 'elgg-subtext'));
+$body .= elgg_view('output/longtext', array('value' => $owner_link . '&nbsp;' . $ingroup . '&nbsp;' . $date, 'class' => 'elgg-subtext'));
 
 
 $pin_link = elgg_view('output/url', array(

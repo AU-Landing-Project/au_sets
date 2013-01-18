@@ -78,12 +78,12 @@ function au_sets_notify_message($hook, $type, $message, $params) {
  */
 function au_sets_owner_block_menu($hook, $type, $return, $params) {
   if (elgg_instanceof($params['entity'], 'user')) {
-	$url = "set/owner/{$params['entity']->username}";
+	$url = "sets/owner/{$params['entity']->username}";
 	$item = new ElggMenuItem('set', elgg_echo('au_sets:sets'), $url);
 	$return[] = $item;
   } else {
 	if ($params['entity']->sets_enable != "no") {
-	  $url = "set/group/{$params['entity']->guid}/all";
+	  $url = "sets/group/{$params['entity']->guid}/all";
 	  $item = new ElggMenuItem('set', elgg_echo('au_sets:group'), $url);
 	  $return[] = $item;
 	}
