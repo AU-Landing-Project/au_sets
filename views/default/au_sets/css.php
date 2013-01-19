@@ -21,6 +21,20 @@ form#set-post-edit #description_parent #description_ifr {
   background-color: #FAFFA8;
 }
 
+.au-set-result.au-set-result-pinned {
+  cursor: not-allowed;
+  background-color: #cccccc;
+}
+
+.au-set-result.au-set-result-pinned a,
+.au-set-result.au-set-result-pinned a:hover,
+.au-set-result.au-set-result-pinned h4 {
+  cursor: not-allowed;
+  color: #454545;
+  text-decoration: none;
+}
+
+
 .elgg-button.au-sets-selector-close {
   display: inline-block;
   margin-top: 4px;

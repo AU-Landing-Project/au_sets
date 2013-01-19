@@ -32,6 +32,7 @@ $english = array(
 	'au_sets:unpin:confirm' => "Are you sure you want to unpin this item?",
 	'au_sets:error:existing:pin' => "This content is already pinned to that set",
 	'au_sets:search:mine' => 'Restrict results to sets I created',
+	'au_sets:ingroup' => "in the group %s",
 	
 	// Editing
 	'au_sets:add' => 'Add Set',

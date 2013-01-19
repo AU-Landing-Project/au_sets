@@ -9,6 +9,11 @@ if (!elgg_is_logged_in()) {
   return;
 }
 
+$mine = true;
+if ($vars['filter_mine'] == 'false') {
+  $mine = false;
+}
+
 $entity = $vars['entity'];
 if (!elgg_instanceof($entity)) {
   echo elgg_echo('au_sets:error:invalid:entity');
@@ -20,7 +25,7 @@ $query = sanitise_string($vars['query']);
 
 $user = elgg_get_logged_in_user_entity();
 $write_accesses = au_sets_get_write_accesses($user);
-//echo "<pre>" . print_r($write_accesses) . "</pre>";
+
 
 $dbprefix = elgg_get_config('dbprefix');
 
@@ -35,23 +40,31 @@ $options = array(
 	'target_entity_guid' => $entity->guid
 );
 
-$metadata_name_id = get_metastring_id('write_access_id');
-$options['joins'] = array(
-	"JOIN {$dbprefix}objects_entity o ON e.guid = o.guid",
-	"JOIN {$dbprefix}metadata md ON e.guid = md.entity_guid AND md.name_id = {$metadata_name_id}",
-	"JOIN {$dbprefix}metastrings ms ON ms.id = md.value_id"
-);
+
+$options['joins'] = array();
+$options['joins'][] = "JOIN {$dbprefix}objects_entity o ON e.guid = o.guid";
 	
 // where's
 $options['wheres'] = array();
 
-//only show if we have write access to it
-$write_in = implode(', ', $write_accesses);
-$friends_in = "SELECT guid_one FROM {$dbprefix}entity_relationships WHERE guid_two = {$user->guid} AND relationship = 'friend'";
+// only search others if 'mine' is not set
+if (!$mine) {
+  //only show if we have write access to it
+  $write_in = implode(', ', $write_accesses);
+  $friends_in = "SELECT guid_one FROM {$dbprefix}entity_relationships WHERE guid_two = {$user->guid} AND relationship = 'friend'";
 
-// restrict to some write accesses, friends, or stuff the user owns
-// @TODO - is there any way to make these granular?
-$options['wheres'][] = "(ms.string IN({$write_in}) OR (ms.string = '" . ACCESS_FRIENDS . "' AND e.owner_guid IN({$friends_in})) OR (e.owner_guid = {$user->guid}))";
+  // restrict to some write accesses, friends, or stuff the user owns
+  // @TODO - is there any way to make these granular?
+  $options['wheres'][] = "(ms.string IN({$write_in}) OR (ms.string = '" . ACCESS_FRIENDS . "' AND e.owner_guid IN({$friends_in})) OR (e.owner_guid = {$user->guid}))";
+  
+  
+  $metadata_name_id = get_metastring_id('write_access_id');
+  $options['joins'][] = "JOIN {$dbprefix}metadata md ON e.guid = md.entity_guid AND md.name_id = {$metadata_name_id}";
+  $options['joins'][] = "JOIN {$dbprefix}metastrings ms ON ms.id = md.value_id";
+}
+else {
+  $options['owner_guids'] = array($user->guid);
+}
 	
 /*
  * @TODO - Jon wants everything shown, thinks it's better UX

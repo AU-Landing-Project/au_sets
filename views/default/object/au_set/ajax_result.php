@@ -1,7 +1,10 @@
 <?php
 
+elgg_load_library('au_sets');
+
 $set = elgg_extract('entity', $vars, FALSE);
 $entity_guid = elgg_extract('target_entity_guid', $vars, false);
+$entity = get_entity($entity_guid);
 
 if (!$set) {
 	return TRUE;
@@ -23,12 +26,15 @@ if ($owner) {
 $ingroup = '';
 $container = $set->getContainerEntity();
 if (elgg_instanceof($container, 'group')) {
-  $ingroup = elgg_echo('au_sets:ingroup', array($container->name));
+  $ingroup = elgg_echo('au_sets:ingroup', array(
+	  elgg_view('output/url', array('text' => $container->name, 'href' => $container->getURL()))
+  ));
 }
 
 $date = elgg_view_friendly_time($set->time_created);
 
-$body .= elgg_view('output/longtext', array('value' => $owner_link . '&nbsp;' . $ingroup . '&nbsp;' . $date, 'class' => 'elgg-subtext'));
+$body .= elgg_view('output/longtext', array(
+	'value' => elgg_echo('au_sets:authored_by', array($owner_link)) . '&nbsp;' . $ingroup . '&nbsp;' . $date, 'class' => 'elgg-subtext'));
 
 
 $pin_link = elgg_view('output/url', array(
@@ -38,8 +44,14 @@ $pin_link = elgg_view('output/url', array(
 	'rel' => $set->getGUID()
 ));
 
-$image_alt = array('image_alt' => $pin_link);
 
-echo '<div class="au-set-result" data-set="' . $set->getGUID() . '" data-entity="' . $entity_guid . '">';
+$class = 'au-set-result';
+$title = '';
+if (au_sets_is_pinned($entity, $set)) {
+  $class .= ' au-set-result-pinned';
+  $title .= ' title="' . elgg_echo('au_sets:error:existing:pin') . '"';
+}
+
+echo '<div class="' . $class . '" data-set="' . $set->getGUID() . '" data-entity="' . $entity_guid . '"' . $title . '>';
 echo elgg_view_image_block($icon, $body);
 echo '</div>';

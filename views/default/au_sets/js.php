@@ -97,6 +97,8 @@ elgg.au_sets.search = function() {
   $('.au-sets-query').live('keyup', function(e) {
 	var query = $(this).val();
 	var guid = $(this).attr('data-guid');
+	var mine = $('.au-sets-query-mine').is(':checked');
+	
 	
 	// no sense searching for tiny strings
 	if (query.length < 3) {
@@ -123,7 +125,8 @@ elgg.au_sets.search = function() {
       timeout: 120000, //2 min
       data: {
         guid: guid,
-		query: query
+		query: query,
+		filter_mine: mine
       },
       success: function(result, success, xhr){
 		results.removeClass('au-sets-throbber');
@@ -150,6 +153,13 @@ elgg.au_sets.search = function() {
 elgg.au_sets.pin = function() {
   $('.au-set-result').live('click', function(e) {
 	e.preventDefault();
+	
+	// only attempt pinning if it's not already pinned
+	if ($(this).hasClass('au-set-result-pinned')) {
+	  elgg.register_error(elgg.echo('au_sets:error:existing:pin'));
+	  return;
+	}
+	
 	var set_guid = $(this).attr('data-set');
 	var entity_guid = $(this).attr('data-entity');
 	
@@ -170,7 +180,9 @@ elgg.au_sets.pin = function() {
       },
       success: function(result, success, xhr){
 		if (result.status == 0) {
-		  entity.fadeOut(1500, function() { entity.remove(); });
+		  entity.removeClass('au-sets-throbber');
+		  entity.addClass('au-set-result-pinned');
+		  entity.html(html);
 		}
 		else {
 		  entity.removeClass('au-sets-throbber');
