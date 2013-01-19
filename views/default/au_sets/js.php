@@ -156,7 +156,7 @@ elgg.au_sets.pin = function() {
 	
 	// only attempt pinning if it's not already pinned
 	if ($(this).hasClass('au-set-result-pinned')) {
-	  elgg.register_error(elgg.echo('au_sets:error:existing:pin'));
+	  elgg.system_message(elgg.echo('au_sets:error:existing:pin'));
 	  return;
 	}
 	
