@@ -78,6 +78,10 @@ $container_guid_input = elgg_view('input/hidden', array('name' => 'container_gui
 $guid_input = elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars['guid']));
 
 
+// Layout
+$layout_label = elgg_echo('au_sets:label:layout');
+$layout_input = elgg_view('au_sets/input/layout', $vars);
+
 echo <<<___HTML
 
  <div>
@@ -115,6 +119,11 @@ $categories_input
 <div>
   <label for="au_set_write_access_id">$write_access_label</label>
 	$write_access_input
+</div>
+
+<div>
+  <label for="au_set_layout">$layout_label</label>
+	$layout_input
 </div>
 
 <div class="elgg-foot">

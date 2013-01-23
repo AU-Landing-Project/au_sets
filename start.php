@@ -11,6 +11,7 @@ function au_sets_init() {
     
   elgg_extend_view('css/elgg', 'au_sets/css');
   elgg_extend_view('js/elgg', 'au_sets/js');
+  elgg_extend_view('page/layouts/one_column', 'au_sets/navigation/title_menu', 0);
   
   elgg_register_library('au_sets', elgg_get_plugins_path() . 'au_sets/lib/au_sets.php');
   
@@ -19,6 +20,8 @@ function au_sets_init() {
   elgg_register_action("au_set/delete", dirname(__FILE__) . "/actions/delete.php");
   elgg_register_action("au_sets/pin", dirname(__FILE__) . "/actions/pin.php");
   elgg_register_action("au_sets/unpin", dirname(__FILE__) . "/actions/unpin.php");
+  
+  elgg_register_event_handler('pagesetup', 'system', 'au_sets_pagesetup');
   
   // register page handler
   elgg_register_page_handler('sets','au_sets_page_handler');
@@ -45,6 +48,10 @@ function au_sets_init() {
   
   elgg_register_ajax_view('au_sets/search');
   elgg_register_ajax_view('au_sets/search_results');
+  
+  elgg_register_widget_type('set_avatar', elgg_echo("au_sets:widget:set_avatar:title"), elgg_echo("au_sets:widget:set_avatar:description"), 'sets', TRUE);
+  elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), 'sets', TRUE);
+  elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'sets', TRUE);
 }
 
 
@@ -86,7 +93,7 @@ function au_sets_page_handler($page) {
 			$params = au_sets_get_page_content_friends($user->guid);
 			break;
 		case 'view':
-			$params = au_sets_get_page_content_read($page[1]);
+			return au_sets_get_page_content_read($page[1]);
 			break;
 		case 'add':
 			gatekeeper();
@@ -106,14 +113,17 @@ function au_sets_page_handler($page) {
 			$set = get_entity($page[1]);
 			au_sets_get_icon($set, $page[2]);
 			return true;
+		case 'list':
+			$params = au_sets_get_set_list($page[1]);
+			break;
 		default:
 			return false;
 	}
 
 	if (isset($params['sidebar'])) {
-		$params['sidebar'] .= elgg_view('au_sets/sidebar', array('page' => $page_type));
+		$params['sidebar'] .= elgg_view('au_sets/sidebar', array('page' => $page[0]));
 	} else {
-		$params['sidebar'] = elgg_view('au_sets/sidebar', array('page' => $page_type));
+		$params['sidebar'] = elgg_view('au_sets/sidebar', array('page' => $page[0]));
 	}
 
 	$body = elgg_view_layout('content', $params);
@@ -165,5 +175,15 @@ function au_sets_get_write_accesses($user) {
   return $access;
 }
 
+
+function au_sets_pagesetup() {
+  if (elgg_get_context() == 'sets') {
+	$set = elgg_get_page_owner_entity();
+	
+	if ($set->canEdit()) {
+	  elgg_register_title_button('sets', 'edit');
+	}
+  }
+}
 
 elgg_register_event_handler('init', 'system', 'au_sets_init');

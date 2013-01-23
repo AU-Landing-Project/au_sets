@@ -42,6 +42,11 @@ $english = array(
 	'au_sets:never' => 'Never',
 	'au_sets:label:icon' => "Set Icon (Leave blank to remain unchanged)",
 	'au_sets:label:write_access' => "Who can edit this Set?",
+	'au_sets:label:layout' => "Set the layout",
+	'au_sets:add:new:row' => "Add new row",
+	'au_sets:how:many:columns' => "How many columns?",
+	'sets:edit' => 'Edit',
+	
 	
 	// messages
 	'au_sets:error:cannot_save' => 'Cannot save Set.',
@@ -68,6 +73,19 @@ $english = array(
 View and comment on the new Set:
 %s
 ',
+	
+	// widget manager
+	'widget_manager:widgets:lightbox:title:au_sets_profile' => "Widgets for Sets",
+	
+	// widgets
+	'au_sets:widget:set_avatar:description' => "Display the avatar of the set in configurable size",
+	'au_sets:widget:set_avatar:title' => "Set Avatar",
+	'au_sets:widget:set_description:title' => "Set Description",
+	'au_sets:widget:set_description:description' => "Profile information for the set, description, author, tags, etc.",
+	'au_sets:num:results' => "Number of items to display",
+	'au_sets:widget:set_list:title' => "Set List",
+	'au_sets:widget:set_list:description' => "Display a list of recently pinned content",
+	
 );
 					
 add_translation("en",$english);

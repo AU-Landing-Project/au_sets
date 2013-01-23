@@ -82,21 +82,14 @@ if ($full) {
   );
   
   $params = $params + $vars;
+  
   $summary = elgg_view('object/elements/summary', $params);
   
   $context = elgg_get_context();
   elgg_set_context('au_sets_profile');
-  $body = elgg_list_entities_from_relationship(array(
-	  'relationship_guid' => $set->guid,
-	  'relationship' => AU_SETS_PINNED_RELATIONSHIP,
-	  'inverse_relationship' => true,
-	  'full_view' => false,
-	  'limit' => 10,
-	  'order_by' => 'r.time_created DESC'
-  ));
   
   // add invisible markup to contain set guid for js
-  $body .= '<div class="au-sets-guid-markup" data-set="' . $set->guid . '"></div>';
+  $body = '<div class="au-sets-guid-markup" data-set="' . $set->guid . '"></div>';
   
   elgg_set_context($context);
 
@@ -104,7 +97,9 @@ if ($full) {
 	'summary' => $summary,
 	'icon' => $icon,
 	'body' => $body,
+	  'class' => 'profile elgg-col-2of3'
   ));
+ 
 
 } else {
 	// brief view

@@ -52,3 +52,16 @@ form#set-post-edit #description_parent #description_ifr {
   background-repeat: no-repeat;
   min-height: 35px;
 }
+
+.au-set {
+  background-color: white;
+}
+
+.au-set .elgg-menu-title {
+  margin-top: -35px;
+  margin-bottom: 5px;
+}
+
+.au-set-widgets-wrapper {
+  clear: both;
+}

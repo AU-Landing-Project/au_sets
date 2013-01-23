@@ -19,6 +19,9 @@ elgg.au_sets.init = function() {
 	
 	// Initialize unpin click
 	elgg.au_sets.unpin();
+	
+	// Initialize location input
+	elgg.au_sets.input();
 
 };
 
@@ -254,6 +257,21 @@ elgg.au_sets.unpin = function() {
 		}
       }
 	});
+	
+  });
+}
+
+
+elgg.au_sets.input = function() {
+  $('.au-set-add-new-row').live('click', function(e) {
+	e.preventDefault();
+	var numcols = $('.au-set-num-columns').val();
+	
+	if (numcols == 0) {
+	  return;
+	}
+	
+	
 	
   });
 }

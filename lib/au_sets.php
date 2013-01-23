@@ -19,8 +19,6 @@ function au_sets_get_icon($set, $size = "medium") {
 	$size = "medium";
   }
 
-  $success = false;
-
   $filehandler = new ElggFile();
   $filehandler->owner_guid = $set->owner_guid;
   $filehandler->setFilename("sets/" . $set->guid . $size . ".jpg");
@@ -54,12 +52,12 @@ function au_sets_get_icon($set, $size = "medium") {
  */
 function au_sets_get_page_content_read($guid = NULL) {
 
-	$return = array();
+	$params = array();
 
 	$set = get_entity($guid);
 
 	// no header or tabs for viewing an individual blog
-	$return['filter'] = '';
+	$params['filter'] = '';
 
 	if (!elgg_instanceof($set, 'object', 'au_set')) {
 		register_error(elgg_echo('noaccess'));
@@ -67,7 +65,8 @@ function au_sets_get_page_content_read($guid = NULL) {
 		forward('');
 	}
 
-	$return['title'] = $set->title;
+	elgg_set_page_owner_guid($set->guid);
+	$params['title'] = $set->title;
 
 	$container = $set->getContainerEntity();
 	$crumbs_title = $container->name;
@@ -78,13 +77,16 @@ function au_sets_get_page_content_read($guid = NULL) {
 	}
 
 	elgg_push_breadcrumb($set->title);
-	$return['content'] = elgg_view_entity($set, array('full_view' => true));
-	//check to see if comment are on
-	if ($set->comments_on != 'Off') {
-		$return['content'] .= elgg_view_comments($set);
-	}
+	$entity_view = elgg_view_entity($set, array('full_view' => true));
+	$content = elgg_view_layout('widgets', array('content' => $entity_view, 'exact_match' => true));
+	$params['content'] = elgg_view_menu('title') . '<div class="au-set-widgets-wrapper">' . $content . '</div>';
+	$params['class'] = 'au-set';
 
-	return $return;
+	elgg_set_context('sets');
+	$body = elgg_view_layout('one_column', $params);
+
+	echo elgg_view_page($params['title'], $body);
+	return true;
 }
 
 /**
@@ -224,6 +226,8 @@ function au_sets_get_page_content_edit($page, $guid = 0) {
 		$title = elgg_echo('au_sets:edit');
 
 		if (elgg_instanceof($set, 'object', 'au_set') && $set->canEdit()) {
+		  
+			$return['filter'] = elgg_view('au_sets/navigation/edit', array('entity' => $set));
 			$vars['entity'] = $set;
 
 			$title .= ": \"$set->title\"";
@@ -250,6 +254,38 @@ function au_sets_get_page_content_edit($page, $guid = 0) {
 	$return['title'] = $title;
 	$return['content'] = $content;
 	return $return;	
+}
+
+
+function au_sets_get_set_list($guid) {
+  $set = get_entity($guid);
+  if (!elgg_instanceof($set, 'object', 'au_set') || !$set->canEdit()) {
+	register_error(elgg_echo('au_sets:error:invalid:set'));
+	forward(REFERER);
+  }
+  
+  elgg_push_breadcrumb($set->title, $set->getURL());
+  elgg_push_breadcrumb(elgg_echo('List'));
+  
+  $context = elgg_get_context();
+  elgg_set_context('au_sets_profile');
+  $list = elgg_list_entities_from_relationship(array(
+	  'relationship_guid' => $set->guid,
+	  'relationship' => AU_SETS_PINNED_RELATIONSHIP,
+	  'inverse_relationship' => true,
+	  'full_view' => false,
+	  'limit' => 10,
+	  'order_by' => 'r.time_created DESC'
+  ));
+  elgg_set_context($context);
+  
+  $params = array(
+	'filter' => elgg_view('au_sets/navigation/edit', array('entity' => $set)),
+	'content' => $list,
+	'title' => $set->title
+  );
+  
+  return $params;
 }
 
 /**
