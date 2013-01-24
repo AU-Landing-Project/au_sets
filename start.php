@@ -54,6 +54,7 @@ function au_sets_init() {
   elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), 'sets', TRUE);
   elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'sets', TRUE);
   elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), 'sets', TRUE);
+  elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), 'sets', TRUE);
 }
 
 
@@ -182,7 +183,7 @@ function au_sets_pagesetup() {
   if (elgg_get_context() == 'sets') {
 	$set = elgg_get_page_owner_entity();
 	
-	if ($set->canEdit()) {
+	if (elgg_instanceof($set, 'object', 'au_set') && $set->canEdit()) {
 	  elgg_register_title_button('sets', 'edit');
 	}
   }

@@ -33,6 +33,7 @@ $english = array(
 	'au_sets:error:existing:pin' => "This content is already pinned to that set",
 	'au_sets:search:mine' => 'Restrict results to sets I created',
 	'au_sets:ingroup' => "in the group %s",
+	'au_sets:error:unpinned' => "Content is already unpinned - possibly an incorrect id",
 	
 	// Editing
 	'au_sets:add' => 'Add Set',
@@ -85,7 +86,7 @@ View and comment on the new Set:
 	'au_sets:num:results' => "Number of items to display",
 	'au_sets:widget:set_list:title' => "Recent Pins",
 	'au_sets:widget:set_list:description' => "Display a list of recently pinned content",
-	'au_sets:set_list:invalid:entity' => "Widget is not configured or the pinned entity is no longer accessible",
+	'au_sets:set_list:invalid:entity' => "Widget is not configured or the entity is no longer accessible",
 	'au_sets:set_list:full_view:help' => "Note: some content may not change support this option",
 	'au_sets:widget:set_item:title' => "Single Pin",
 	'au_sets:widget:set_item:description' => "Display a single pinned item in either a full or condensed view",
@@ -93,6 +94,12 @@ View and comment on the new Set:
 	'au_sets:full_view:false' => "Condensed View",
 	'au_sets:full_view:true' => "Full View",
 	'au_sets:item:add' => "Select Pinned Item",
+	'au_sets:item:add:help' => "Note that all users may not be able to see this content depending on its access settings which are independent of the access of this display",
+	'au_sets:not:pinned' => "Content is no longer pinned",
+	'au_sets:comments:off' => "Comments are disabled for this set",
+	'au_sets:widget:set_comments:title' => "Comments",
+	'au_sets:widget:set_comments:description' => "Display comments for this set",
+	'au_sets:comments:new_comments' => "Allow the addition of new comments?",
 	
 );
 					

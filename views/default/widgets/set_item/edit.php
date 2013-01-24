@@ -51,3 +51,8 @@ echo elgg_view('input/hidden', array(
 	'value' => $vars['entity']->subject_guid ? $vars['entity']->subject_guid : 0,
 	'id' => 'au-set-item-input-' . $vars['entity']->guid
 ));
+
+echo elgg_view('output/longtext', array(
+	'value' => elgg_echo('au_sets:item:add:help'),
+	'class' => 'elgg-subtext'
+));

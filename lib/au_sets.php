@@ -277,6 +277,8 @@ function au_sets_get_set_list($guid) {
 	  'limit' => 10,
 	  'order_by' => 'r.time_created DESC'
   ));
+  
+  $list .= '<div class="au-sets-guid-markup" data-set="' . $set->guid . '"></div>';
   elgg_set_context($context);
   
   $params = array(
