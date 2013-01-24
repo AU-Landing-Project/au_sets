@@ -65,3 +65,19 @@ form#set-post-edit #description_parent #description_ifr {
 .au-set-widgets-wrapper {
   clear: both;
 }
+
+.au-sets-item-search-results {
+  margin-top: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.au-set-item-preview {
+  padding: 4px;
+  border-bottom: 1px dashed #cccccc;
+  cursor: pointer;
+}
+
+.au-set-item-preview:hover {
+  background-color: #FAFFA8
+}

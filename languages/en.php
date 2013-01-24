@@ -83,8 +83,16 @@ View and comment on the new Set:
 	'au_sets:widget:set_description:title' => "Set Description",
 	'au_sets:widget:set_description:description' => "Profile information for the set, description, author, tags, etc.",
 	'au_sets:num:results' => "Number of items to display",
-	'au_sets:widget:set_list:title' => "Set List",
+	'au_sets:widget:set_list:title' => "Recent Pins",
 	'au_sets:widget:set_list:description' => "Display a list of recently pinned content",
+	'au_sets:set_list:invalid:entity' => "Widget is not configured or the pinned entity is no longer accessible",
+	'au_sets:set_list:full_view:help' => "Note: some content may not change support this option",
+	'au_sets:widget:set_item:title' => "Single Pin",
+	'au_sets:widget:set_item:description' => "Display a single pinned item in either a full or condensed view",
+	'au_sets:set_list:full_view' => "Choose how to display the content",
+	'au_sets:full_view:false' => "Condensed View",
+	'au_sets:full_view:true' => "Full View",
+	'au_sets:item:add' => "Select Pinned Item",
 	
 );
 					

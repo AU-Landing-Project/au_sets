@@ -22,7 +22,12 @@ elgg.au_sets.init = function() {
 	
 	// Initialize location input
 	elgg.au_sets.input();
+	
+	// Initialize set_item widget search
+	elgg.au_sets.set_item();
 
+	// Set the item as the widget input
+	elgg.au_sets.set_item_select();
 };
 
 
@@ -47,8 +52,8 @@ elgg.au_sets.pinclick = function() {
 	
 	$('body').prepend('<div class="au-sets-selector au-sets-throbber hidden" id="'+div_id+'"></div>');
 	var modal = $('#'+div_id);
-	var left = offset.left - 230;
-	var top = offset.top + 20;
+	var left = Math.round(offset.left - 230);
+	var top = Math.round(offset.top + 20);
 	
 	// position it relative to the pin link
 	modal.css('marginTop', top + 'px');
@@ -273,6 +278,77 @@ elgg.au_sets.input = function() {
 	
 	
 	
+  });
+}
+
+
+elgg.au_sets.set_item = function() {
+  $('.au-set-item-add').live('click', function(e) {
+	e.preventDefault();
+	
+	// remove any existing modals first - we only want one active
+	$('.au-sets-selector').remove();
+	
+	var widget_guid = $(this).attr('data-widget');
+	var set_guid = $(this).attr('data-set');
+	var offset = $(this).offset();
+	var div_id = 'au-set-item-select-'+widget_guid;
+	
+	$('body').prepend('<div class="au-sets-selector au-sets-throbber hidden" id="'+div_id+'"></div>');
+	var modal = $('#'+div_id);
+	var left = Math.round(offset.left - 230);
+	var top = Math.round(offset.top + 20);
+
+	// position it relative to the pin link
+	modal.css('marginTop', top + 'px');
+	modal.css('marginLeft', left + 'px');
+	modal.hide().fadeIn(1000);
+	
+	// get the list of writeable sets
+	elgg.get('ajax/view/au_sets/item_search', {
+      timeout: 120000, //2 min
+      data: {
+        guid: set_guid,
+		widget_guid: widget_guid
+      },
+      success: function(result, success, xhr){
+		modal.removeClass('au-sets-throbber');
+        modal.html(result);
+      },
+      error: function(result, response, xhr) {
+		modal.removeClass('au-sets-throbber');
+        if (response == 'timeout') {
+          modal.html(elgg.echo('au_sets:error:timeout'));
+        }
+		else {
+		  modal.html(elgg.echo('au_sets:error:generic'));
+		}
+      }
+    });
+  });
+}
+
+/**
+*
+*	Selects the individual pin to use on the single pin widget
+*
+*/
+elgg.au_sets.set_item_select = function() {
+  $('.au-sets-item-search-results .au-set-item-preview').live('click', function(e) {
+	e.preventDefault();
+	
+	var widget_guid = $(this).attr('data-widget');
+	var item_guid = $(this).attr('data-item');
+	var html = $(this).html();
+	
+	// insert the html into the widget
+	$('#au-set-item-selected-'+widget_guid).html(html);
+	
+	// set this hidden input value
+	$('#au-set-item-input-'+widget_guid).val(item_guid);
+	
+	// remove the modal
+	$('.au-sets-selector').remove();
   });
 }
 
