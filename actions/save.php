@@ -39,6 +39,7 @@ $values = array(
 	'comments_on' => 'On',
 	'tags' => '',
 	'container_guid' => (int)get_input('container_guid'),
+	'layout' => '[[100]]',
 );
 
 // fail if a required entity isn't set

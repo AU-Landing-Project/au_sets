@@ -43,10 +43,12 @@ $english = array(
 	'au_sets:never' => 'Never',
 	'au_sets:label:icon' => "Set Icon (Leave blank to remain unchanged)",
 	'au_sets:label:write_access' => "Who can edit this Set?",
-	'au_sets:label:layout' => "Set the layout",
+	'au_sets:label:layout' => "Choose a layout",
 	'au_sets:add:new:row' => "Add new row",
 	'au_sets:how:many:columns' => "How many columns?",
 	'sets:edit' => 'Edit',
+	'au_sets:layout:type' => "Layout %s",
+	'au_sets:invalid:layout' => "Invalid Layout",
 	
 	
 	// messages

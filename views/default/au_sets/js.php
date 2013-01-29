@@ -28,6 +28,9 @@ elgg.au_sets.init = function() {
 
 	// Set the item as the widget input
 	elgg.au_sets.set_item_select();
+	
+	// layout preview
+	elgg.au_sets.preview();
 };
 
 
@@ -351,5 +354,34 @@ elgg.au_sets.set_item_select = function() {
 	$('.au-sets-selector').remove();
   });
 }
+
+
+elgg.au_sets.preview = function() {
+  $('.au-set-layout-select').live('change', function() {
+	$('#au-set-layout-preview').html('').addClass('au-sets-throbber');
+  
+	var layout = $(this).val();
+	
+	// get the list of writeable sets
+	elgg.get('ajax/view/au_sets/layout_preview', {
+      timeout: 120000, //2 min
+      data: {
+        layout: layout
+      },
+      success: function(result, success, xhr){
+		$('#au-set-layout-preview').removeClass('au-sets-throbber').html(result);
+      },
+      error: function(result, response, xhr) {
+        if (response == 'timeout') {
+          elgg.register_error(elgg.echo('au_sets:error:timeout'));
+        }
+		else {
+		  elgg.register_error(elgg.echo('au_sets:error:generic'));
+		}
+      }
+    });
+  });
+}
+
 
 elgg.register_hook_handler('init', 'system', elgg.au_sets.init);

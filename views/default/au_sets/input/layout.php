@@ -2,34 +2,31 @@
 
 $set = $vars['entity'];
 
-echo '<div class="au-sets-layout">';
+echo '<div class="au-sets-layout clearfix">';
   echo elgg_view('input/dropdown', array(
-	  'name' => 'new-row',
-	  'class' => 'au-set-num-columns',
+	  'name' => 'layout',
+	  'class' => 'au-set-layout-select',
+	  'value' => $set->layout ? $set->layout : '[[100]]',
 	  'options_values' => array(
-		  '' => elgg_echo('au_sets:how:many:columns'),
-		  1 => 1,
-		  2 => 2,
-		  3 => 3,
-		  4 => 4,
-		  5 => 5,
-		  6 => 6,
-		  7 => 7,
-		  8 => 8,
-		  9 => 9,
-		  10 => 10
+		  '[[100]]' => elgg_echo('au_sets:layout:type', array(1)),
+		  '[[50,50]]' => elgg_echo('au_sets:layout:type', array(2)),
+		  '[[100],[50,50],[100]]' => elgg_echo('au_sets:layout:type', array(3)),
+		  '[[100],[60,40],[100]]' => elgg_echo('au_sets:layout:type', array(4)),
+		  '[[100],[40,60],[100]]' => elgg_echo('au_sets:layout:type', array(5)),
+		  '[[33,34,33]]' => elgg_echo('au_sets:layout:type', array(6)),
+		  '[[100],[33,34,33],[100]]' => elgg_echo('au_sets:layout:type', array(7)),
+		  '[[100],[25,25,25,25],[100]]' => elgg_echo('au_sets:layout:type', array(8)),
+		  '[[50,50],[33,34,33],[50,50]]' => elgg_echo('au_sets:layout:type', array(9)),
+		  '[[100],[75,25],[100]]' => elgg_echo('au_sets:layout:type', array(10)),
+		  '[[100],[25,75],[100]]' => elgg_echo('au_sets:layout:type', array(11)),
+		  '[[100],[50,25,25],[100]]' => elgg_echo('au_sets:layout:type', array(12)),
 	  )
-  ));
-  
-  echo elgg_view('output/url', array(
-	  'text' => elgg_echo('au_sets:add:new:row'),
-	  'href' => "#",
-	  'class' => 'au-set-add-new-row'
-  ));
-  
+  ));  
   
   // dynamically populated
-  echo '<div class="au-set-layout-config">';
-  
+  echo '<div id="au-set-layout-preview">';
+	echo elgg_view('au_sets/layout_preview', array(
+		'layout' => $set->layout ? $set->layout : '[[100]]'
+	));
   echo '</div>';
 echo '</div>';

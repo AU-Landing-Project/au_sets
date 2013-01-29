@@ -81,3 +81,48 @@ form#set-post-edit #description_parent #description_ifr {
 .au-set-item-preview:hover {
   background-color: #FAFFA8
 }
+
+/*  Preview  */
+#au-set-layout-preview {
+  width: 410px;
+  float: right;
+}
+
+.au-sets-preview-wrapper {
+  width: 400px;
+  min-height: 50px;
+  border: 1px solid black;
+  background-color: #cccccc;
+  padding: 5px;
+}
+
+.au-sets-preview {
+  display: table-cell;
+  float: right;
+  background-color: #333333;
+  border: 1px solid white;
+  min-height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+}
+
+.ui-sortable .au-sets-widget-placeholder {
+  min-height: 25px;
+}
+
+.ui-sortable .au-sets-widget-placeholder:hover {
+  min-height: 75px;
+}
+
+<?php
+// generate a css class for each width 1-100%
+
+for ($i=1; $i<101; $i++) {
+?>
+.au-sets-widget-width-<?php echo $i; ?> {
+  width: <?php echo $i; ?>%;
+}
+
+<?php
+}

@@ -77,8 +77,12 @@ function au_sets_get_page_content_read($guid = NULL) {
 	}
 
 	elgg_push_breadcrumb($set->title);
-	$entity_view = elgg_view_entity($set, array('full_view' => true));
-	$content = elgg_view_layout('widgets', array('content' => $entity_view, 'exact_match' => true));
+	
+	$content = elgg_view_layout('au_configurable_widgets', array(
+		'widget_layout' => json_decode($set->layout),
+		'exact_match' => true
+	));
+	
 	$menu = elgg_view_menu('entity', array(
 	  'entity' => $set,
 	  'handler' => 'au_set',

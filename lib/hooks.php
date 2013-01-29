@@ -104,6 +104,10 @@ function au_sets_permissions_check($hook, $type, $return, $params) {
 	return $return;
   }
   
+  if (!elgg_is_logged_in()) {
+	return $return;
+  }
+  
   // this is our object, lets determine if we can edit it
   $set = $params['entity'];
   $user = $params['user'];
