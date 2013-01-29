@@ -57,7 +57,7 @@ form#set-post-edit #description_parent #description_ifr {
   background-color: white;
 }
 
-.au-set .elgg-menu-title {
+.au-set .au-set-title-menu {
   margin-top: -35px;
   margin-bottom: 5px;
 }

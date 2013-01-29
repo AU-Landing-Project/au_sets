@@ -79,7 +79,13 @@ function au_sets_get_page_content_read($guid = NULL) {
 	elgg_push_breadcrumb($set->title);
 	$entity_view = elgg_view_entity($set, array('full_view' => true));
 	$content = elgg_view_layout('widgets', array('content' => $entity_view, 'exact_match' => true));
-	$params['content'] = elgg_view_menu('title') . '<div class="au-set-widgets-wrapper">' . $content . '</div>';
+	$menu = elgg_view_menu('entity', array(
+	  'entity' => $set,
+	  'handler' => 'au_set',
+	  'sort_by' => 'priority',
+	  'class' => 'elgg-menu-hz au-set-title-menu',
+	));
+	$params['content'] = $menu . '<div class="au-set-widgets-wrapper">' . $content . '</div>';
 	$params['class'] = 'au-set';
 
 	elgg_set_context('sets');

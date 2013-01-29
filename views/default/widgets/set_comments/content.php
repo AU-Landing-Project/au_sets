@@ -2,7 +2,7 @@
 
 $set = $vars['entity']->getContainerEntity();
 $new_comments = ($vars['entity']->new_comments != 'no') ? true : false;
-
+var_dump($set);
 if ($set->comments_on != 'Off') {
   $context = elgg_get_context();
   elgg_set_context('sets'); // remove widget context so pagination can happen

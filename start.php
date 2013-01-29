@@ -55,6 +55,12 @@ function au_sets_init() {
   elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'sets', TRUE);
   elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), 'sets', TRUE);
   elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), 'sets', TRUE);
+  
+  au_sets_add_widget_context('free_html', 'sets');
+  au_sets_add_widget_context('tabtext', 'sets');
+  au_sets_add_widget_context('rss', 'sets');
+  au_sets_add_widget_context('xgadget', 'sets');
+  
 }
 
 
@@ -187,6 +193,24 @@ function au_sets_pagesetup() {
 	  elgg_register_title_button('sets', 'edit');
 	}
   }
+}
+
+
+function au_sets_add_widget_context($handle, $context) {
+  
+  if (!elgg_is_widget_type($handle)) {
+	return false;
+  }
+  
+  $widgets = elgg_get_config('widgets');
+  
+  if (!in_array($context, $widgets->handlers[$handle]->context)) {
+	array_push($widgets->handlers[$handle]->context, $context);
+  }
+  
+  elgg_set_config('widgets', $widgets);
+  
+  return true;
 }
 
 elgg_register_event_handler('init', 'system', 'au_sets_init');

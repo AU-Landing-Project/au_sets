@@ -61,6 +61,7 @@ $english = array(
 	
 	// river
 	'au_sets:river:create' => "%s has created a new Set %s",
+	'river:comment:object:au_set' => '%s commented on the set %s',
 	
 	/* notifications */
 	'au_sets:newset' => 'A new Set has been created',
@@ -77,6 +78,7 @@ View and comment on the new Set:
 	
 	// widget manager
 	'widget_manager:widgets:lightbox:title:au_sets_profile' => "Widgets for Sets",
+	'widget_manager:widgets:lightbox:title:sets' => "Widgets for Sets",
 	
 	// widgets
 	'au_sets:widget:set_avatar:description' => "Display the avatar of the set in configurable size",
