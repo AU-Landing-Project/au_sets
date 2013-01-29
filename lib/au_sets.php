@@ -31,7 +31,7 @@ function au_sets_get_icon($set, $size = "medium") {
   }
 
   if (!$success) {
-	$location = elgg_get_plugins_path() . "au_sets/graphics/default{$size}.gif";
+	$location = elgg_get_plugins_path() . "au_sets/graphics/default{$size}.jpg";
 	$contents = @file_get_contents($location);
   }
 
