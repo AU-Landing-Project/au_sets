@@ -15,3 +15,5 @@ echo elgg_view('input/dropdown', array(
 	'value' => $vars['entity']->num_results ? $vars['entity']->num_results : 10,
 	'options_values' => $options_values
 ));
+
+echo '<br>';

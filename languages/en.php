@@ -49,8 +49,10 @@ $english = array(
 	'sets:edit' => 'Edit',
 	'au_sets:layout:type' => "Layout %s",
 	'au_sets:invalid:layout' => "Invalid Layout",
-	'au_sets:view:layout' => "View Layout",
-	'au_sets:hide:layout' => "Hide Layout",
+	'au_sets:view:layout' => "Layout Mode",
+	'au_sets:hide:layout' => "View Mode",
+	'au_sets:mode:layout:help' => "Here you can see all potential places for widgets, as well as edit all widgets.  To view the page as others will see it switch to 'view mode'",
+	'au_sets:mode:view:help' => "If you cannot find the space to move a widget, or cannot edit a widget with styles disabled switch to 'layout mode'",
 	
 	
 	// messages
@@ -106,6 +108,7 @@ View and comment on the new Set:
 	'au_sets:widget:set_comments:title' => "Comments",
 	'au_sets:widget:set_comments:description' => "Display comments for this set",
 	'au_sets:comments:new_comments' => "Allow the addition of new comments?",
+	'au_sets:widget:visibility' => "Hide default widget style?",
 	
 );
 					

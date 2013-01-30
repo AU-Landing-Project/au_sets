@@ -31,6 +31,9 @@ elgg.au_sets.init = function() {
 	
 	// layout preview
 	elgg.au_sets.preview();
+	
+	// update widget class in real time
+	elgg.au_sets.widget_save();
 };
 
 
@@ -395,6 +398,35 @@ elgg.ui.widgets.move = function(event, ui) {
   if (typeof au_sets_normalize_widget_height == 'function') {
 	au_sets_normalize_widget_height();
   }
+}
+
+
+elgg.au_sets.widget_save = function() {
+  $('.elgg-form').live('submit', function() {
+	var parent = $(this).parent();
+	var guid = parent.attr('id').substr(12);
+	var hide = true;
+	
+	var split = location.search.replace('?', '').split('&').map(function(val){
+	  return val.split('=');
+	});
+	
+	for (var i=0; i < split.length; i++) {
+	  if (split[i][0] == 'view_layout' && split[i][1] == 1) {
+		hide = false;
+	  }
+	}
+	
+	if (hide) {
+	  if ($('#elgg-widget-'+guid+' .au-sets-widget-visibility-select').val() == 'yes') {
+		$('#elgg-widget-'+guid).addClass('au-sets-hide-style');
+	  }
+	  else {
+		$('#elgg-widget-'+guid).removeClass('au-sets-hide-style');
+	  }
+	}
+	
+  });
 }
 
 elgg.register_hook_handler('init', 'system', elgg.au_sets.init);

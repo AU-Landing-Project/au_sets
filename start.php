@@ -65,6 +65,13 @@ function au_sets_init() {
   au_sets_add_widget_context('rss', 'sets');
   au_sets_add_widget_context('xgadget', 'sets');
   
+  // get all widget handlers and extend the edit form
+  $types = elgg_get_widget_types('sets', true);
+  if (is_array($types)) {
+	foreach ($types as $handle => $info) {
+	  elgg_extend_view("widgets/{$handle}/edit", 'au_sets/widgets/style_visibility');
+	}
+  }
 }
 
 

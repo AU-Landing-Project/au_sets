@@ -88,6 +88,15 @@ form#set-post-edit #description_parent #description_ifr {
   border: 1px dashed #cccccc;
 }
 
+/* hide display on select widgets */
+.au-sets-widgets .elgg-module-widget.au-sets-hide-style .elgg-head {
+  display: none;
+}
+
+.au-sets-widgets .elgg-module-widget.au-sets-hide-style .elgg-body {
+  border: 0;
+}
+
 /*  Layout Preview  */
 #au-set-layout-preview {
   width: 410px;

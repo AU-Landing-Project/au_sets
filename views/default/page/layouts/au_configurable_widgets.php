@@ -48,6 +48,14 @@ if (elgg_can_edit_widget_layout($context)) {
 	echo elgg_view('page/layouts/widgets/add_panel', $params);
 	
 	$preview = get_input('view_layout', false);
+	
+	if ($preview) {
+	  $helptext = elgg_echo('au_sets:mode:layout:help');
+	}
+	else {
+	  $helptext = elgg_echo('au_sets:mode:view:help');
+	}
+	echo elgg_view('output/longtext', array('value' => $helptext, 'class' => 'elgg-subtext'));
 }
 
 
@@ -79,7 +87,12 @@ foreach ($widget_columns as $row => $columns) {
 	if (sizeof($column_widgets) > 0) {
 	  foreach ($column_widgets as $widget) {
 		if (array_key_exists($widget->handler, $widget_types)) {
-		  echo elgg_view_entity($widget, array('show_access' => $show_access));
+		  // if not in preview mode, wrap widgets that need styling hidden
+		  $widget_class = '';
+		  if (!$preview && ($widget->sets_hide_style == 'yes')) {
+			$widget_class = 'au-sets-hide-style';
+		  }
+		  echo elgg_view_entity($widget, array('show_access' => $show_access, 'class' => $widget_class));
 		}
 	  }
 	}
