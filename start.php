@@ -26,6 +26,9 @@ function au_sets_init() {
   // register page handler
   elgg_register_page_handler('sets','au_sets_page_handler');
   
+  // make it show up in search
+  elgg_register_entity_type('object', 'au_set');
+  
   elgg_register_plugin_hook_handler('permissions_check', 'object', 'au_sets_permissions_check');
   elgg_register_plugin_hook_handler('register', 'menu:entity', 'au_sets_entity_menu');
   elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'au_sets_owner_block_menu');
