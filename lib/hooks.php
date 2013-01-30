@@ -20,7 +20,7 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
   }
   
   // add unpin link if we're displaying the entity on a set profile
-  if (elgg_get_context() == 'au_sets_profile') {
+  if (elgg_get_context() == 'au_sets_list') {
 	
 	$text = '<span data-guid="' . $params['entity']->getGUID() . '">';
 	$text .= elgg_echo('au_sets:unpin');
@@ -29,6 +29,22 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
 	$unpin->setLinkClass('au-sets-unpin');
 	
 	$return[] = $unpin;
+  }
+  
+  // add link for viewing the layout if we're in read mode and can edit the set
+  if (stristr($params['class'], 'au-set-title-menu') && $params['entity']->canEdit()) {
+	$layout_active = get_input('view_layout', false);
+	
+	if (!$layout_active) {
+	  $url = elgg_http_add_url_query_elements(current_page_url(), array('view_layout' => 1));
+	  $view_layout = new ElggMenuItem('au_sets:view_layout', elgg_echo('au_sets:view:layout'), $url);
+	}
+	else {
+	  $url = elgg_http_remove_url_query_element(current_page_url(), 'view_layout');
+	  $view_layout = new ElggMenuItem('au_sets:view_layout', elgg_echo('au_sets:hide:layout'), $url);
+	}
+	
+	$return[] = $view_layout;
   }
   
   return $return;
@@ -40,7 +56,11 @@ function au_sets_icon_url_override($hook, $type, $return, $params) {
   }
   
   // get our icon url
-  return elgg_get_site_url() . 'sets/icon/' . $params['entity']->getGUID() . '/' . $params['size'] . '/' . $params['entity']->icontime . '.jpg';
+  $icontime = $params['entity']->icontime;
+  if (!$icontime) {
+	$icontime = 'default';
+  }
+  return elgg_get_site_url() . 'sets/icon/' . $params['entity']->getGUID() . '/' . $params['size'] . '/' . $icontime . '.jpg';
 }
 
 

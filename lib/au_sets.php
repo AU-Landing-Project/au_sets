@@ -278,7 +278,7 @@ function au_sets_get_set_list($guid) {
   elgg_push_breadcrumb(elgg_echo('List'));
   
   $context = elgg_get_context();
-  elgg_set_context('au_sets_profile');
+  elgg_set_context('au_sets_list');
   $list = elgg_list_entities_from_relationship(array(
 	  'relationship_guid' => $set->guid,
 	  'relationship' => AU_SETS_PINNED_RELATIONSHIP,

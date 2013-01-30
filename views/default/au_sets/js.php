@@ -383,5 +383,18 @@ elgg.au_sets.preview = function() {
   });
 }
 
+// reassign the widgets move function to our variable
+// then reassign the widgets move variable
+elgg.au_sets.widgets_move = elgg.ui.widgets.move;
+
+elgg.ui.widgets.move = function(event, ui) {
+  elgg.au_sets.widgets_move(event, ui);
+  
+  // reset row heights
+  // only if our normalization is defined
+  if (typeof au_sets_normalize_widget_height == 'function') {
+	au_sets_normalize_widget_height();
+  }
+}
 
 elgg.register_hook_handler('init', 'system', elgg.au_sets.init);

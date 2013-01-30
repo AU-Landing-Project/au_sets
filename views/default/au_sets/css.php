@@ -82,7 +82,13 @@ form#set-post-edit #description_parent #description_ifr {
   background-color: #FAFFA8
 }
 
-/*  Preview  */
+/* Widget moving mods */
+.au-sets-display-placeholder {
+  height: 100px;
+  border: 1px dashed #cccccc;
+}
+
+/*  Layout Preview  */
 #au-set-layout-preview {
   width: 410px;
   float: right;
@@ -97,22 +103,12 @@ form#set-post-edit #description_parent #description_ifr {
 }
 
 .au-sets-preview {
-  display: table-cell;
   float: right;
   background-color: #333333;
   border: 1px solid white;
   min-height: 50px;
   text-align: center;
-  vertical-align: middle;
   color: white;
-}
-
-.ui-sortable .au-sets-widget-placeholder {
-  min-height: 25px;
-}
-
-.ui-sortable .au-sets-widget-placeholder:hover {
-  min-height: 75px;
 }
 
 <?php

@@ -49,6 +49,8 @@ $english = array(
 	'sets:edit' => 'Edit',
 	'au_sets:layout:type' => "Layout %s",
 	'au_sets:invalid:layout' => "Invalid Layout",
+	'au_sets:view:layout' => "View Layout",
+	'au_sets:hide:layout' => "Hide Layout",
 	
 	
 	// messages

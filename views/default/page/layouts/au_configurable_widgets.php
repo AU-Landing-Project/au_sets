@@ -32,6 +32,7 @@ $widget_types = elgg_get_widget_types($available_widgets_context);
 elgg_push_context('widgets');
 
 $widgets = elgg_get_widgets($owner->guid, $context);
+$preview = false;
 
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
@@ -45,6 +46,8 @@ if (elgg_can_edit_widget_layout($context)) {
 		'show_access' => $show_access
 	);
 	echo elgg_view('page/layouts/widgets/add_panel', $params);
+	
+	$preview = get_input('view_layout', false);
 }
 
 
@@ -63,16 +66,22 @@ foreach ($widget_columns as $row => $columns) {
 	}
 	
 	$class = 'au-sets-widget-width-' . $width;
+	if (elgg_can_edit_widget_layout($context)) {
+	  $class .= ' au-sets-widget-editable';
+	}
+	
 	echo "<div class=\"elgg-widgets au-sets-widgets au-sets-row-{$row} {$class}\" id=\"elgg-widget-col-$column_index\">";
+	
+	if ($preview) {
+	  echo '<div class="au-sets-preview au-sets-widget-width-100" style="float: none;">' . $column_index . '</div>';
+	}
+	
 	if (sizeof($column_widgets) > 0) {
 	  foreach ($column_widgets as $widget) {
 		if (array_key_exists($widget->handler, $widget_types)) {
 		  echo elgg_view_entity($widget, array('show_access' => $show_access));
 		}
 	  }
-	}
-	else {
-	  echo '<div class="au-sets-widget-placeholder"></div>';
 	}
 	echo '</div>';
   }
