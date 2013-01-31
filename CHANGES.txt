@@ -1,0 +1,9 @@
+== Version History ==
+
+x.x (mm/dd/yyyy):
+
+1.1 ():
+ - fix widget layout edit permissions
+
+1.0 (01/30/2013):
+ - initial release

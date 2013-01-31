@@ -154,3 +154,12 @@ function au_sets_permissions_check($hook, $type, $return, $params) {
   
   return $return;
 }
+
+
+function au_sets_widget_layout_perms($hook, $type, $return, $params) {
+  if (elgg_instanceof($params['page_owner'], 'object', 'au_set')) {
+	return $params['page_owner']->canEdit($params['user']->guid);
+  }
+  
+  return $return;
+}

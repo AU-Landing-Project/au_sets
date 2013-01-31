@@ -30,6 +30,7 @@ function au_sets_init() {
   elgg_register_entity_type('object', 'au_set');
   
   elgg_register_plugin_hook_handler('permissions_check', 'object', 'au_sets_permissions_check');
+  elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'au_sets_widget_layout_perms');
   elgg_register_plugin_hook_handler('register', 'menu:entity', 'au_sets_entity_menu');
   elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'au_sets_owner_block_menu');
   
