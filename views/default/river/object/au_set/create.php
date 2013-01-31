@@ -7,7 +7,7 @@ $excerpt = elgg_get_excerpt(strip_tags($object->description));
 
 $summary = elgg_echo('au_sets:river:create', array(
 	elgg_view('output/url', array('text' => $subject->name, 'href' => $subject->getURL())),
-	elgg_view('output/url', array('text' => $object->title, 'href' => $subject->getURL()))
+	elgg_view('output/url', array('text' => $object->title, 'href' => $object->getURL()))
 ));
 
 $message = elgg_view_image_block(

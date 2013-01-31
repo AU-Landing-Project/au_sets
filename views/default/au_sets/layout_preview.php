@@ -21,7 +21,7 @@ foreach ($layout as $row) {
 	  continue;
 	}
 	$index++;
-	$width = ($width * 4) - 2;
+	$width = ($width * 4) - 4;
 	echo "<div class=\"au-sets-preview\" style=\"width: {$width}px\">{$index}</div>";
   }
   echo '<div style="clear: both;"></div>';

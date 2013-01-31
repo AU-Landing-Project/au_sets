@@ -97,6 +97,10 @@ form#set-post-edit #description_parent #description_ifr {
   border: 0;
 }
 
+.au-set-widgets .elgg-module-widget.au-sets-hide-style {
+  background-color: transparent;
+}
+
 /*  Layout Preview  */
 #au-set-layout-preview {
   width: 410px;
