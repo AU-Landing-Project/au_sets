@@ -14,6 +14,8 @@ $user = elgg_get_logged_in_user_entity();
 
 // edit or create a new entity
 $guid = get_input('guid');
+$pin_guid = get_input('pin');
+$pin = get_entity($pin_guid);
 
 if ($guid) {
 	$entity = get_entity($guid);
@@ -162,7 +164,16 @@ if (!$error) {
 		  }
 		}
 		
-		forward($set->getURL());
+		if ($pin) {
+		  elgg_load_library('au_sets');
+		  if (au_sets_pin_entity($pin, $set)) {
+			$name = $pin->title ? $pin->title : $pin->name;
+			system_message(elgg_echo('au_sets:autopinned', array($name)));
+		  }
+		}
+		
+		// send to the set in layout mode
+		forward($set->getURL() . '?view_layout=1');
 
 	}
 	else {

@@ -70,7 +70,8 @@ elgg.au_sets.pinclick = function() {
 	elgg.get('ajax/view/au_sets/search', {
       timeout: 120000, //2 min
       data: {
-        guid: guid
+        guid: guid,
+		pageowner: elgg.get_page_owner_guid()
       },
       success: function(result, success, xhr){
 		modal.removeClass('au-sets-throbber');
@@ -360,29 +361,16 @@ elgg.au_sets.set_item_select = function() {
 
 
 elgg.au_sets.preview = function() {
-  $('.au-set-layout-select').live('change', function() {
-	$('#au-set-layout-preview').html('').addClass('au-sets-throbber');
-  
-	var layout = $(this).val();
+  $('.au-sets-preview-wrapper').live('click', function(e) {
+	e.preventDefault();
 	
-	// get the list of writeable sets
-	elgg.get('ajax/view/au_sets/layout_preview', {
-      timeout: 120000, //2 min
-      data: {
-        layout: layout
-      },
-      success: function(result, success, xhr){
-		$('#au-set-layout-preview').removeClass('au-sets-throbber').html(result);
-      },
-      error: function(result, response, xhr) {
-        if (response == 'timeout') {
-          elgg.register_error(elgg.echo('au_sets:error:timeout'));
-        }
-		else {
-		  elgg.register_error(elgg.echo('au_sets:error:generic'));
-		}
-      }
-    });
+	$('.au-sets-preview-wrapper').removeClass('selected');
+	$(this).addClass('selected');
+	
+	// make our input use this layout
+	var layout = $(this).attr('data-layout');
+	
+	$('#au-sets-layout-input').val(layout);
   });
 }
 

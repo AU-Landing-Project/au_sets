@@ -2,6 +2,11 @@
 
 x.x (mm/dd/yyyy):
 
+1.2 ():
+ - after creating/editing a set the writer is sent to layout mode
+ - adds 'create set' option while pinning - will pin to new set
+ - moves to clickable layout selection instead of dropdown
+
 1.1 (01/31/2013):
  - fix widget layout edit permissions
 

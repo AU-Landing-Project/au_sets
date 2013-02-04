@@ -1,6 +1,9 @@
 <?php
 /**
  * This view is called via ajax
+ * $vars:
+ * 'entity' => the entity being pinned
+ * 'pageowner' => the guid of the pageowner
  */
 
 if (!elgg_is_logged_in() || !$vars['entity']) {
@@ -15,6 +18,13 @@ echo elgg_view('output/url', array(
 ));
 
 echo "<h3>" . elgg_echo('au_sets:pin:to') . "</h3>";
+
+echo elgg_view('output/url', array(
+	'text' => elgg_echo('au_sets:create:new:set:with:pin'),
+	'href' => elgg_get_site_url() . 'sets/add/' . elgg_get_logged_in_user_guid() . '?pin=' . $vars['entity']->guid,
+));
+
+echo '<br>';
 
 echo '<div id="au-sets-selector-results-' . $vars['entity']->guid . '">';
 

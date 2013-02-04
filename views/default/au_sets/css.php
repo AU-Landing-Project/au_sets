@@ -108,11 +108,21 @@ form#set-post-edit #description_parent #description_ifr {
 }
 
 .au-sets-preview-wrapper {
-  width: 400px;
+  float: left;
+  width: 150px;
   min-height: 50px;
   border: 1px solid black;
   background-color: #cccccc;
   padding: 5px;
+  text-align: center;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.au-sets-preview-wrapper.selected {
+  border: 2px solid red;
+  background-color: white;
+  margin: 3px;
 }
 
 .au-sets-preview {
@@ -122,6 +132,11 @@ form#set-post-edit #description_parent #description_ifr {
   min-height: 50px;
   text-align: center;
   color: white;
+}
+
+/* make the preview lighter if selected */
+.au-sets-preview-wrapper.selected .au-sets-preview {
+  background-color: #676767;
 }
 
 <?php

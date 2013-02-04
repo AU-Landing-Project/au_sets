@@ -34,6 +34,7 @@ $english = array(
 	'au_sets:search:mine' => 'Restrict results to sets I created',
 	'au_sets:ingroup' => "in the group %s",
 	'au_sets:error:unpinned' => "Content is already unpinned - possibly an incorrect id",
+	'au_sets:create:new:set:with:pin' => "Create a new set and pin this",
 	
 	// Editing
 	'au_sets:add' => 'Add Set',
@@ -53,6 +54,7 @@ $english = array(
 	'au_sets:hide:layout' => "View Mode",
 	'au_sets:mode:layout:help' => "Here you can see all potential places for widgets, as well as edit all widgets.  To view the page as others will see it switch to 'view mode'",
 	'au_sets:mode:view:help' => "If you cannot find the space to move a widget, or cannot edit a widget with styles disabled switch to 'layout mode'",
+	'au_sets:autopinned' => "The item '%s' has been pinned to this set",
 	
 	
 	// messages

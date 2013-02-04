@@ -53,7 +53,6 @@ function au_sets_init() {
   elgg_register_ajax_view('au_sets/search');
   elgg_register_ajax_view('au_sets/search_results');
   elgg_register_ajax_view('au_sets/item_search');
-  elgg_register_ajax_view('au_sets/layout_preview');
   
   elgg_register_widget_type('set_avatar', elgg_echo("au_sets:widget:set_avatar:title"), elgg_echo("au_sets:widget:set_avatar:description"), 'sets', TRUE);
   elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), 'sets', TRUE);

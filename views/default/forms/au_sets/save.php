@@ -2,7 +2,7 @@
 
 $set = get_entity($vars['guid']);
 $vars['entity'] = $set;
-
+$pin = get_input('pin');
 
 $action_buttons = '';
 $delete_link = '';
@@ -82,6 +82,12 @@ $guid_input = elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars
 $layout_label = elgg_echo('au_sets:label:layout');
 $layout_input = elgg_view('au_sets/input/layout', $vars);
 
+// autopin
+$pin_input = '';
+if ($pin) {
+  $pin_input = elgg_view('input/hidden', array('name' => 'pin', 'value' => $pin));
+}
+
 echo <<<___HTML
 
  <div>
@@ -131,6 +137,7 @@ $categories_input
 	$guid_input
 	$container_guid_input
 
+	$pin_input
 	$action_buttons
 </div>
 

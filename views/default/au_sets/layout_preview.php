@@ -1,14 +1,16 @@
 <?php
 
 $layout = json_decode($vars['layout']);
-//echo "<pre>" . print_r(json_decode($vars['layout']),1) . "</pre>";
+
 
 if (!is_array($layout)) {
   echo elgg_echo('au_sets:invalid:layout');
   return;
 }
 
-echo '<div class="au-sets-preview-wrapper">';
+$class = $vars['selected'] ? "au-sets-preview-wrapper selected" : "au-sets-preview-wrapper";
+
+echo '<div class="' . $class . '" data-layout="' . $vars['layout'] . '">';
 
 $index = 0;
 foreach ($layout as $row) {
@@ -21,7 +23,7 @@ foreach ($layout as $row) {
 	  continue;
 	}
 	$index++;
-	$width = ($width * 4) - 4;
+	$width = round(($width * 1.5)) - 3;
 	echo "<div class=\"au-sets-preview\" style=\"width: {$width}px\">{$index}</div>";
   }
   echo '<div style="clear: both;"></div>';
