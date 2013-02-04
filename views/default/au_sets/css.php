@@ -3,6 +3,11 @@ form#set-post-edit #description_parent #description_ifr {
 	height:400px !important;
 }
 
+.au-sets-bookmark-icon {
+  background-image: url(<?php echo elgg_get_site_url(); ?>mod/au_sets/graphics/bookmark.png);
+  background-position: 0 0;
+}
+
 .au-sets-selector {
   position: absolute;
   width: 250px;

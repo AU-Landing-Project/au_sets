@@ -12,9 +12,9 @@ if (elgg_instanceof($set, 'object', 'au_set') && $set->canEdit()) {
 	if ($set->delete()) {
 		system_message(elgg_echo('au_sets:message:deleted'));
 		if (elgg_instanceof($container, 'group')) {
-			forward("sets/group/$container->guid/all");
+			forward("pinboards/group/$container->guid/all");
 		} else {
-			forward("sets/owner/$container->username");
+			forward("pinboards/owner/$container->username");
 		}
 	} else {
 		register_error(elgg_echo('au_sets:error:cannot_delete'));

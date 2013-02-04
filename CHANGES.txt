@@ -2,10 +2,12 @@
 
 x.x (mm/dd/yyyy):
 
-1.2 ():
+1.2 (02/04/2013):
  - after creating/editing a set the writer is sent to layout mode
  - adds 'create set' option while pinning - will pin to new set
  - moves to clickable layout selection instead of dropdown
+ - rebrands 'sets' as 'pinboards'
+ - adds plugin settings to use 'pin' icon for sets, replace bookmarks pin icon with a 'bookmark' icon
 
 1.1 (01/31/2013):
  - fix widget layout edit permissions

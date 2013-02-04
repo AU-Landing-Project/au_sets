@@ -24,7 +24,7 @@ function au_sets_init() {
   elgg_register_event_handler('pagesetup', 'system', 'au_sets_pagesetup');
   
   // register page handler
-  elgg_register_page_handler('sets','au_sets_page_handler');
+  elgg_register_page_handler('pinboards','au_sets_page_handler');
   
   // make it show up in search
   elgg_register_entity_type('object', 'au_set');
@@ -33,6 +33,11 @@ function au_sets_init() {
   elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'au_sets_widget_layout_perms');
   elgg_register_plugin_hook_handler('register', 'menu:entity', 'au_sets_entity_menu');
   elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'au_sets_owner_block_menu');
+  
+  $replace_bookmarks_icon = elgg_get_plugin_setting('change_bookmark_icon', 'au_sets');
+  if ($replace_bookmarks_icon != 'no') {
+	elgg_register_plugin_hook_handler('register', 'menu:extras', 'au_sets_extras_menu', 1000);
+  }
   
   // notifications
   register_notification_object('object', 'au_set', elgg_echo('au_sets:newset'));
@@ -95,9 +100,10 @@ function au_sets_init() {
 function au_sets_page_handler($page) {
 
 	elgg_load_library('au_sets');
+	elgg_set_context('sets');
 
 	// push all sets breadcrumb
-	elgg_push_breadcrumb(elgg_echo('au_sets:sets'), "sets/all");
+	elgg_push_breadcrumb(elgg_echo('au_sets:sets'), "pinboards/all");
 
 	if (!isset($page[0])) {
 		$page[0] = 'all';
@@ -166,7 +172,7 @@ function au_sets_url_handler($entity) {
 
   $friendly_title = elgg_get_friendly_title($entity->title);
   
-  return "sets/view/{$entity->guid}/$friendly_title";
+  return "pinboards/view/{$entity->guid}/$friendly_title";
 }
 
 

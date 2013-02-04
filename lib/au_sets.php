@@ -71,9 +71,9 @@ function au_sets_get_page_content_read($guid = NULL) {
 	$container = $set->getContainerEntity();
 	$crumbs_title = $container->name;
 	if (elgg_instanceof($container, 'group')) {
-		elgg_push_breadcrumb($crumbs_title, "sets/group/$container->guid/all");
+		elgg_push_breadcrumb($crumbs_title, "pinboards/group/$container->guid/all");
 	} else {
-		elgg_push_breadcrumb($crumbs_title, "sets/owner/$container->username");
+		elgg_push_breadcrumb($crumbs_title, "pinboards/owner/$container->username");
 	}
 
 	elgg_push_breadcrumb($set->title);
@@ -180,7 +180,7 @@ function au_sets_get_page_content_friends($user_guid) {
 	$return['title'] = elgg_echo('au_sets:title:friends');
 
 	$crumbs_title = $user->name;
-	elgg_push_breadcrumb($crumbs_title, "sets/owner/{$user->username}");
+	elgg_push_breadcrumb($crumbs_title, "pinboards/owner/{$user->username}");
 	elgg_push_breadcrumb(elgg_echo('friends'));
 
 	elgg_register_title_button();

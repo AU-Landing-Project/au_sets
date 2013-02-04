@@ -4,15 +4,24 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
   if (is_array($return) && elgg_instanceof($params['entity'], 'object', 'au_set')) {
 	foreach ($return as $key => $item) {
 	  if ($item->getName() == 'edit') {
-		$return[$key]->setHref('sets/edit/' . $params['entity']->getGUID());
+		$return[$key]->setHref('pinboards/edit/' . $params['entity']->getGUID());
 	  }
 	}
   }
   
   if (elgg_is_logged_in() && !elgg_in_context('widgets')) {
-	$text = '<span data-guid="' . $params['entity']->getGUID() . '">';
-	$text .= elgg_echo('au_sets:pin');
-	$text .= '</span>';
+	$use_icon = elgg_get_plugin_setting('pin_icon', 'au_sets');
+	
+	if ($use_icon != 'no') {
+	  $text = '<span class="elgg-icon elgg-icon-push-pin-alt" data-guid="' . $params['entity']->getGUID() . '">';
+	  $text .= '</span>';
+	}
+	else {
+	  $text = '<span data-guid="' . $params['entity']->getGUID() . '">';
+	  $text .= elgg_echo('au_sets:pin');
+	  $text .= '</span>';
+	}
+	
 	$pin = new ElggMenuItem('au_sets_pin', $text, '#');
 	$pin->setLinkClass('au-sets-pin');
 
@@ -50,6 +59,21 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
   return $return;
 }
 
+
+/*
+ * replaces the bookmarks icon
+ */
+function au_sets_extras_menu($hook, $type, $return, $params) {
+  foreach ($return as $key => $item) {
+	if ($item->getName() == 'bookmark') {
+	  $return[$key]->setText('<span class="elgg-icon au-sets-bookmark-icon"></span>');
+	}
+  }
+  
+  return $return;
+}
+
+
 function au_sets_icon_url_override($hook, $type, $return, $params) {
   if (!elgg_instanceof($params['entity'], 'object', 'au_set')) {
 	return $return;
@@ -60,7 +84,7 @@ function au_sets_icon_url_override($hook, $type, $return, $params) {
   if (!$icontime) {
 	$icontime = 'default';
   }
-  return elgg_get_site_url() . 'sets/icon/' . $params['entity']->getGUID() . '/' . $params['size'] . '/' . $icontime . '.jpg';
+  return elgg_get_site_url() . 'pinboards/icon/' . $params['entity']->getGUID() . '/' . $params['size'] . '/' . $icontime . '.jpg';
 }
 
 
@@ -98,12 +122,12 @@ function au_sets_notify_message($hook, $type, $message, $params) {
  */
 function au_sets_owner_block_menu($hook, $type, $return, $params) {
   if (elgg_instanceof($params['entity'], 'user')) {
-	$url = "sets/owner/{$params['entity']->username}";
+	$url = "pinboards/owner/{$params['entity']->username}";
 	$item = new ElggMenuItem('set', elgg_echo('au_sets:sets'), $url);
 	$return[] = $item;
   } else {
 	if ($params['entity']->sets_enable != "no") {
-	  $url = "sets/group/{$params['entity']->guid}/all";
+	  $url = "pinboards/group/{$params['entity']->guid}/all";
 	  $item = new ElggMenuItem('set', elgg_echo('au_sets:group'), $url);
 	  $return[] = $item;
 	}
