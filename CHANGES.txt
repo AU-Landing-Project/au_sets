@@ -2,6 +2,9 @@
 
 x.x (mm/dd/yyyy):
 
+1.3 (02/05/2013):
+ - fixes bug with the context change from sets -> pinboards
+
 1.2 (02/04/2013):
  - after creating/editing a set the writer is sent to layout mode
  - adds 'create set' option while pinning - will pin to new set
