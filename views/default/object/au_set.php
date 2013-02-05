@@ -23,7 +23,7 @@ if (!$excerpt) {
 
 $icon = elgg_view_entity_icon($set, 'tiny');
 $link = elgg_view('output/url', array(
-	'href' => "sets/owner/$owner->username",
+	'href' => "pinboards/owner/$owner->username",
 	'text' => $owner->name,
 	'is_trusted' => true,
 ));

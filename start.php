@@ -48,7 +48,7 @@ function au_sets_init() {
   elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'au_sets_icon_url_override');
   
   // add a site navigation item
-  $item = new ElggMenuItem('sets', elgg_echo('au_sets:sets'), 'sets/all');
+  $item = new ElggMenuItem('sets', elgg_echo('au_sets:sets'), 'pinboards/all');
   elgg_register_menu_item('site', $item);
   
   // Add group option
@@ -59,23 +59,27 @@ function au_sets_init() {
   elgg_register_ajax_view('au_sets/search_results');
   elgg_register_ajax_view('au_sets/item_search');
   
-  elgg_register_widget_type('set_avatar', elgg_echo("au_sets:widget:set_avatar:title"), elgg_echo("au_sets:widget:set_avatar:description"), 'sets', TRUE);
-  elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), 'sets', TRUE);
-  elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'sets', TRUE);
-  elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), 'sets', TRUE);
-  elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), 'sets', TRUE);
+  elgg_register_widget_type('set_avatar', elgg_echo("au_sets:widget:set_avatar:title"), elgg_echo("au_sets:widget:set_avatar:description"), 'pinboards', TRUE);
+  elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), 'pinboards', TRUE);
+  elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'pinboards', TRUE);
+  elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), 'pinboards', TRUE);
+  elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), 'pinboards', TRUE);
   
-  au_sets_add_widget_context('free_html', 'sets');
-  au_sets_add_widget_context('tabtext', 'sets');
-  au_sets_add_widget_context('rss', 'sets');
-  au_sets_add_widget_context('xgadget', 'sets');
+  au_sets_add_widget_context('free_html', 'pinboards');
+  au_sets_add_widget_context('tabtext', 'pinboards');
+  au_sets_add_widget_context('rss', 'pinboards');
+  au_sets_add_widget_context('xgadget', 'pinboards');
   
   // get all widget handlers and extend the edit form
-  $types = elgg_get_widget_types('sets', true);
+  $types = elgg_get_widget_types('pinboards', true);
   if (is_array($types)) {
 	foreach ($types as $handle => $info) {
 	  elgg_extend_view("widgets/{$handle}/edit", 'au_sets/widgets/style_visibility');
 	}
+  }
+  
+  if (elgg_is_admin_logged_in()) {
+	run_function_once('au_sets_w_context_20130205');
   }
 }
 
@@ -100,7 +104,6 @@ function au_sets_init() {
 function au_sets_page_handler($page) {
 
 	elgg_load_library('au_sets');
-	elgg_set_context('sets');
 
 	// push all sets breadcrumb
 	elgg_push_breadcrumb(elgg_echo('au_sets:sets'), "pinboards/all");
@@ -231,3 +234,26 @@ function au_sets_add_widget_context($handle, $context) {
 }
 
 elgg_register_event_handler('init', 'system', 'au_sets_init');
+
+
+
+/**
+ * Upgrades
+ */
+
+function au_sets_w_context_20130205() {
+  $options = array(
+	'type'	=> 'object',
+	  'subtype' => 'widget',
+	  'private_setting_name' => 'context',
+	  'private_setting_value' => 'sets',
+	  'limit' => 0
+  );
+  
+  $batch = new ElggBatch('elgg_get_entities_from_private_settings', $options, 'au_sets_change_context_20130205', 25);
+}
+
+function au_sets_change_context_20130205($result, $getter, $options) {
+  $result->context = 'pinboards';
+  $result->save();
+}

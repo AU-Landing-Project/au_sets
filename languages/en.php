@@ -55,6 +55,8 @@ $english = array(
 	'au_sets:mode:layout:help' => "Here you can see all potential places for widgets, as well as edit all widgets.  To view the page as others will see it switch to 'view mode'",
 	'au_sets:mode:view:help' => "If you cannot find the space to move a widget, or cannot edit a widget with styles disabled switch to 'layout mode'",
 	'au_sets:autopinned' => "The item '%s' has been pinned to this board",
+	'pinboards:add' => "Add Pinboard",
+	'pinboards:edit' => "Edit Pinboard",
 	
 	
 	// messages
@@ -86,7 +88,7 @@ View and comment on the new Pinboard:
 	
 	// widget manager
 	'widget_manager:widgets:lightbox:title:au_sets_profile' => "Widgets for Pinboards",
-	'widget_manager:widgets:lightbox:title:sets' => "Widgets for Pinboards",
+	'widget_manager:widgets:lightbox:title:pinboards' => "Widgets for Pinboards",
 	
 	// widgets
 	'au_sets:widget:set_avatar:description' => "Display the avatar of the Pinboard in configurable size",

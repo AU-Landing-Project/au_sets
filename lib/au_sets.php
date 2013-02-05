@@ -171,7 +171,7 @@ function au_sets_get_page_content_friends($user_guid) {
 
 	$user = get_user($user_guid);
 	if (!$user) {
-		forward('sets/all');
+		forward('pinboards/all');
 	}
 
 	$return = array();
