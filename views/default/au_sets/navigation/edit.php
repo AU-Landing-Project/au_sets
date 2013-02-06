@@ -2,8 +2,8 @@
 
 $set = $vars['entity'];
 
-$edit_url = elgg_get_site_url() . 'sets/edit/' . $set->getGUID();
-$list_url = elgg_get_site_url() . 'sets/list/' . $set->getGUID();
+$edit_url = elgg_get_site_url() . 'pinboards/edit/' . $set->getGUID();
+$list_url = elgg_get_site_url() . 'pinboards/list/' . $set->getGUID();
 
 $tabs = array(
 	array(
