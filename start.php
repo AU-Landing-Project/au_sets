@@ -87,13 +87,13 @@ function au_sets_init() {
 /**
  * Dispatches sets pages.
  * URLs take the form of
- *  All sets:        sets/all
- *  User's sets:     sets/owner/<username>
- *  Friends' sets:   sets/friends/<username>
- *  Set:             sets/view/<guid>/<title>
- *  New set:         sets/add/<guid>
- *  Edit set:        sets/edit/<guid>/
- *  Group set:       sets/group/<guid>/all
+ *  All sets:        pinboards/all
+ *  User's sets:     pinboards/owner/<username>
+ *  Friends' sets:   pinboards/friends/<username>
+ *  Set:             pinboards/view/<guid>/<title>
+ *  New set:         pinboards/add/<guid>
+ *  Edit set:        pinboards/edit/<guid>/
+ *  Group set:       pinboards/group/<guid>/all
  *
  * Title is ignored
  *

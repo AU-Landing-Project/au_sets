@@ -126,7 +126,7 @@ if (!$error) {
 
 		  $icon_sizes = elgg_get_config('icon_sizes');
 
-		  $prefix = "sets/" . $set->guid;
+		  $prefix = "pinboards/" . $set->guid;
 
 		  $filehandler = new ElggFile();
 		  $filehandler->owner_guid = $set->owner_guid;

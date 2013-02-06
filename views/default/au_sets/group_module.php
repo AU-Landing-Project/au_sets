@@ -10,7 +10,7 @@ if ($group->sets_enable == "no") {
 }
 
 $all_link = elgg_view('output/url', array(
-	'href' => "sets/group/$group->guid/all",
+	'href' => "pinboards/group/$group->guid/all",
 	'text' => elgg_echo('link:view:all'),
 	'is_trusted' => true,
 ));
@@ -32,7 +32,7 @@ if (!$content) {
 }
 
 $new_link = elgg_view('output/url', array(
-	'href' => "sets/add/$group->guid",
+	'href' => "pinboards/add/$group->guid",
 	'text' => elgg_echo('au_sets:write'),
 	'is_trusted' => true,
 ));
