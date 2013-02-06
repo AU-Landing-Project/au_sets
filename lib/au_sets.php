@@ -21,7 +21,7 @@ function au_sets_get_icon($set, $size = "medium") {
 
   $filehandler = new ElggFile();
   $filehandler->owner_guid = $set->owner_guid;
-  $filehandler->setFilename("sets/" . $set->guid . $size . ".jpg");
+  $filehandler->setFilename("pinboards/" . $set->guid . $size . ".jpg");
 
   $success = false;
   if ($filehandler->open("read")) {
