@@ -22,6 +22,11 @@ function au_sets_get_icon($set, $size = "medium") {
   $filehandler = new ElggFile();
   $filehandler->owner_guid = $set->owner_guid;
   $filehandler->setFilename("pinboards/" . $set->guid . $size . ".jpg");
+  
+  // back compatibility for sets that were created when we were using the name 'sets'
+  if (!file_exists($filehandler->getFilenameOnFilestore())) {
+	$filehandler->setFilename("sets/" . $set->guid . $size . ".jpg");
+  }
 
   $success = false;
   if ($filehandler->open("read")) {
