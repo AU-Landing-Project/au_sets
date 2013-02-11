@@ -390,7 +390,7 @@ elgg.ui.widgets.move = function(event, ui) {
 
 
 elgg.au_sets.widget_save = function() {
-  $('.elgg-form').live('submit', function() {
+  $('.elgg-form-widgets-save').live('submit', function() {
 	var parent = $(this).parent();
 	var guid = parent.attr('id').substr(12);
 	var hide = true;

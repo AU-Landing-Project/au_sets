@@ -2,6 +2,10 @@
 
 x.x (mm/dd/yyyy):
 
+1.5 (02/11/2013):
+ - Fixes hide widget style context issue
+ - Fixes javascript conflict with embed forms
+
 1.4 (02/08/2013):
  - Fixes additional issues with sets->pinboards conversion (Thanks RvR)
  - Fixes back compatibility with any sets created prior to conversion
