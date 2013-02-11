@@ -1,6 +1,6 @@
 <?php
 
-if (!elgg_in_context('sets')) {
+if (!elgg_in_context('pinboards')) {
   return true;
 }
 
