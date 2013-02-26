@@ -10,7 +10,6 @@ elgg_make_sticky_form('au_set');
 // store errors to pass along
 $error = FALSE;
 $error_forward_url = REFERER;
-$user = elgg_get_logged_in_user_entity();
 
 // edit or create a new entity
 $guid = get_input('guid');
@@ -75,11 +74,7 @@ foreach ($values as $name => $default) {
 		case 'container_guid':
 			// this can't be empty or saving the base entity fails
 			if (!empty($value)) {
-				if (can_write_to_container($user->getGUID(), $value)) {
 					$values[$name] = $value;
-				} else {
-					$error = elgg_echo("au_sets:error:cannot_write_to_container");
-				}
 			} else {
 				unset($values[$name]);
 			}

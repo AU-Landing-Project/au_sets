@@ -7,8 +7,11 @@ $pin = get_input('pin');
 $action_buttons = '';
 $delete_link = '';
 
-if ($vars['guid']) {
-	// add a delete button if editing
+if ($vars['guid']
+		&& (($set->owner_guid == elgg_get_logged_in_user_guid())
+				|| elgg_is_admin_logged_in()
+				)) {
+	// add a delete button if editing AND we're the owner
 	$delete_url = "action/au_set/delete?guid={$vars['guid']}";
 	$delete_link = elgg_view('output/confirmlink', array(
 		'href' => $delete_url,
@@ -70,6 +73,10 @@ $write_access_input = elgg_view('input/access', array(
 	'id' => 'au_set_write_access_id',
 	'value' => $vars['write_access_id']
 ));
+$write_access_help = elgg_view('output/longtext', array(
+	'value' => elgg_echo('au_sets:write_access:help'),
+	'class' => 'elgg-subtext'
+));
 
 $categories_input = elgg_view('input/categories', $vars);
 
@@ -125,6 +132,7 @@ $categories_input
 <div>
   <label for="au_set_write_access_id">$write_access_label</label>
 	$write_access_input
+	$write_access_help
 </div>
 
 <div>

@@ -2,6 +2,15 @@
 
 x.x (mm/dd/yyyy):
 
+1.6 (02/25/2013):
+  - Fixes container edit permission for users granted edit permissions
+  - limit deletion to set owners and admins (same as pages plugin behavior)
+  - adds recent boards widget for profile/dashboard/groups
+  - made 'pinboards' lowercase in group side menu to conform with other plugin standards
+  - added additional help text for pinboard search
+  - added additional help text for write permissions
+  - adds link to view pinboard after pinning content
+
 1.5 (02/11/2013):
  - Fixes hide widget style context issue
  - Fixes javascript conflict with embed forms

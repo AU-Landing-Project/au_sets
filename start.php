@@ -64,11 +64,13 @@ function au_sets_init() {
   elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'pinboards', TRUE);
   elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), 'pinboards', TRUE);
   elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), 'pinboards', TRUE);
+  elgg_register_widget_type('sets', elgg_echo("au_sets:widget:sets:title"), elgg_echo("au_sets:widget:sets:description"), 'profile,groups,dashboard', TRUE);
   
   au_sets_add_widget_context('free_html', 'pinboards');
   au_sets_add_widget_context('tabtext', 'pinboards');
   au_sets_add_widget_context('rss', 'pinboards');
   au_sets_add_widget_context('xgadget', 'pinboards');
+  au_sets_add_widget_context('au_tagtracker', 'pinboards');
   
   // get all widget handlers and extend the edit form
   $types = elgg_get_widget_types('pinboards', true);

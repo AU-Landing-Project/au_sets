@@ -5,7 +5,7 @@ $english = array(
 	'au_sets:sets' => 'Pinboards',
 	'item:object:au_set' => 'Pinboard',
 	'au_sets:enablesets' => "Enable group Pinboards",
-	'au_sets:group' => 'Group Pinboards',
+	'au_sets:group' => 'Group pinboards',
 	'au_sets:title:user_sets' => '%s\'s Pinboards',
 	'au_sets:title:all_sets' => "All site Pinboards",
 	'au_sets:none' => "No Pinboards",
@@ -24,7 +24,7 @@ $english = array(
 	'au_sets:error:generic' => "An error has occurred...",
 	'au_sets:pin:to' => "Pin to a board",
 	'au_sets:search' => "Filter Pinboards",
-	'au_sets:search:help' => "Type a word or words that appears in the title or description of the Pinboard you are looking for",
+	'au_sets:search:help' => "Type a word or words that appears in the title or description of the Pinboard you are looking for.  Matches full words only.",
 	'au_sets:success:pinned' => "Content has been pinned",
 	'au_sets:success:unpinned' => "Content has been unpinned",
 	'au_sets:authored_by' => "By %s",
@@ -57,12 +57,14 @@ $english = array(
 	'au_sets:autopinned' => "The item '%s' has been pinned to this board",
 	'pinboards:add' => "Add Pinboard",
 	'pinboards:edit' => "Edit Pinboard",
+	'au_sets:write_access:help' => "Users granted edit rights will be able to change any of the fields on this page, as well as add/edit/delete widgets.  Only the owner of this pinboard or a site administrator may delete the pinboard.",
+	'au_sets:link:view:set' => 'View this pinboard',
 	
 	
 	// messages
 	'au_sets:error:cannot_save' => 'Cannot save Pinboard.',
 	'au_sets:error:cannot_edit' => 'This Pinboard may not exist or you may not have permissions to edit it.',
-	'au_sets:error:post_not_found' => "This Pinboard cannot be found",
+	'au_sets:error:post_not_found' => "This Pinboard cannot be found or you may not have permissions to edit it",
 	'au_sets:error:missing:title' => "Title cannot be empty",
 	'au_sets:error:cannot_write_to_container' => "Error - cannot write to container",
 	'au_sets:error:cannot_save' => "Error - cannot save the value %s",
@@ -113,6 +115,10 @@ View and comment on the new Pinboard:
 	'au_sets:widget:set_comments:description' => "Display comments for this Pinboard",
 	'au_sets:comments:new_comments' => "Allow the addition of new comments?",
 	'au_sets:widget:visibility' => "Hide default widget style?",
+	'au_sets:widget:sets:title' => "Pinboards",
+	'au_sets:widget:sets:description' => "Display recently created pinboards",
+	'au_sets:widget:pins:title' => "Pins",
+	'au_sets:widget:pins:description' => "Most recently pinned content across all of your pinboards",
 	
 	// settings
 	'au_sets:use:pin:icon' => "Use the pin icon to launch the pin modal?",

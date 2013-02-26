@@ -198,6 +198,7 @@ elgg.au_sets.pin = function() {
 		  entity.removeClass('au-sets-throbber');
 		  entity.addClass('au-set-result-pinned');
 		  entity.html(html);
+		  $('#au-sets-entity-goto-'+set_guid).removeClass('hidden');
 		}
 		else {
 		  entity.removeClass('au-sets-throbber');

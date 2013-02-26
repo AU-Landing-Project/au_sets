@@ -55,3 +55,11 @@ if (au_sets_is_pinned($entity, $set)) {
 echo '<div class="' . $class . '" data-set="' . $set->getGUID() . '" data-entity="' . $entity_guid . '"' . $title . '>';
 echo elgg_view_image_block($icon, $body);
 echo '</div>';
+echo '<div id="au-sets-entity-goto-' . $set->getGUID() . '" class="hidden">';
+
+echo elgg_view('output/url', array(
+	'text' => elgg_echo('au_sets:link:view:set'),
+	'href' => $set->getURL()
+));
+
+echo '</div>';

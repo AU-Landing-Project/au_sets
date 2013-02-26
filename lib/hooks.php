@@ -6,6 +6,12 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
 	  if ($item->getName() == 'edit') {
 		$return[$key]->setHref('pinboards/edit/' . $params['entity']->getGUID());
 	  }
+	  
+	  if  ($item->getName() == 'delete' && elgg_is_logged_in()) {
+		if (!($params['entity']->owner_guid == elgg_get_logged_in_user_guid()) && !elgg_is_admin_logged_in()) {
+		  unset($return[$key]);
+		}
+	  }
 	}
   }
   
@@ -181,8 +187,12 @@ function au_sets_permissions_check($hook, $type, $return, $params) {
 
 
 function au_sets_widget_layout_perms($hook, $type, $return, $params) {
-  if (elgg_instanceof($params['page_owner'], 'object', 'au_set')) {
-	return $params['page_owner']->canEdit($params['user']->guid);
+  if (elgg_instanceof($params['page_owner'], 'object', 'au_set')) {	
+	if ($params['page_owner']->canEdit($params['user']->guid)) {
+	  return true;
+	}
+	
+	return true;
   }
   
   return $return;
