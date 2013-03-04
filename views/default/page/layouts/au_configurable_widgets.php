@@ -34,7 +34,7 @@ elgg_push_context('widgets');
 $widgets = elgg_get_widgets($owner->guid, $context);
 $preview = false;
 
-if (elgg_can_edit_widget_layout($context)) {
+if (elgg_instanceof($owner, 'object', 'au_set') && $owner->canEdit() || elgg_is_admin_logged_in()) {
 	if ($show_add_widgets) {
 		echo elgg_view('page/layouts/widgets/add_button');
 	}
