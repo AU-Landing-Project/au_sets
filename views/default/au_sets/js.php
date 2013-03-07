@@ -226,14 +226,14 @@ elgg.au_sets.unpin = function() {
   $('.au-sets-unpin').live('click', function(e) {
 	e.preventDefault();
 	
-	if (!confirm(elgg.echo('au_sets:unpin:confirm'))) {
-	  return;
-	}
-	
 	var span = $(this).children('span').eq(0);
 	var entity_guid = span.attr('data-guid');
 	var set_guid = $('.au-sets-guid-markup').attr('data-set');
 	var entity = $(this).parents('.elgg-item').eq(0);
+	
+	if (!confirm(elgg.echo('au_sets:unpin:confirm'))) {
+	  return;
+	}
 	
 	// store html in case of failure
 	var html = entity.html();

@@ -35,6 +35,7 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
   }
   
   // add unpin link if we're displaying the entity on a set profile
+  /*
   if (elgg_get_context() == 'au_sets_list') {
 	
 	$text = '<span data-guid="' . $params['entity']->getGUID() . '">';
@@ -45,6 +46,8 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
 	
 	$return[] = $unpin;
   }
+   * 
+   */
   
   // add link for viewing the layout if we're in read mode and can edit the set
   if (stristr($params['class'], 'au-set-title-menu') && $params['entity']->canEdit()) {

@@ -13,6 +13,7 @@ x.x (mm/dd/yyyy):
   - fixes single pin widget modal positioning (used to be able to go off-screen to the left)
   - no longer overwrites the full widget view
   - added help text to single-pin widget modal when no content is pinned to a board
+  - allows entities without an entity menu to be unpinned
 
 1.6 (02/25/2013):
   - Fixes container edit permission for users granted edit permissions

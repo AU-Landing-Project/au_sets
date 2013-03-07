@@ -13,6 +13,9 @@ function au_sets_init() {
   elgg_extend_view('js/elgg', 'au_sets/js');
   elgg_extend_view('page/layouts/one_column', 'au_sets/navigation/title_menu', 0);
   
+  // add inline javascript to unpin anything
+  elgg_extend_view('page/components/list', 'au_sets/components/list');
+  
   elgg_register_library('au_sets', elgg_get_plugins_path() . 'au_sets/lib/au_sets.php');
   
   //register our actions

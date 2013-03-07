@@ -8,6 +8,16 @@ form#set-post-edit #description_parent #description_ifr {
   background-position: 0 0;
 }
 
+.au-sets-unpin-overlay {
+  display: inline-block;
+  float: right;
+  padding: 4px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0 3px;
+}
+
 .au-sets-selector {
   position: absolute;
   width: 250px;
