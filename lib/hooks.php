@@ -214,17 +214,8 @@ function au_sets_widget_permissions_check($hook, $type, $return, $params) {
 	return $return;
   }
   
-  // allow us to edit it right out of the gate
-  if (get_input('action') == 'widgets/add') {
-	return $return;
-  }
-  
-  if (elgg_get_context() == 'widgets') {
-	$preview = get_input('view_layout', false);
-  
-	if (!$preview) {
-	  return false;
-	}
+  if (elgg_get_config('au_sets_widget_noedit')) {
+	return false;
   }
   
   return $return;

@@ -55,6 +55,7 @@ if ($owner->canEdit()) {
 			  'href' => $owner->getURL() . '?view_layout=1'
 		  ))
 	  ));
+	  elgg_set_config('au_sets_widget_noedit', true);
 	}
 }
 
