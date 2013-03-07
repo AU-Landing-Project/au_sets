@@ -2,6 +2,18 @@
 
 x.x (mm/dd/yyyy):
 
+1.7 (03/07/2013):
+  - adds in missing language string
+  - fixes incorrect widget_layout permissions
+  - remove public option from pinboard write access
+  - adds better help text with mode-switch link
+  - can no longer move/edit widgets in view mode (keeping a better contextual difference between view/edit)
+  - smaller widget column headers with better help text
+  - extra padding on widget columns in edit mode
+  - fixes single pin widget modal positioning (used to be able to go off-screen to the left)
+  - no longer overwrites the full widget view
+  - added help text to single-pin widget modal when no content is pinned to a board
+
 1.6 (02/25/2013):
   - Fixes container edit permission for users granted edit permissions
   - limit deletion to set owners and admins (same as pages plugin behavior)

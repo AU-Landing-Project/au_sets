@@ -290,6 +290,7 @@ elgg.au_sets.input = function() {
 }
 
 
+// select the single pinned item on the single pin widget
 elgg.au_sets.set_item = function() {
   $('.au-set-item-add').live('click', function(e) {
 	e.preventDefault();
@@ -304,7 +305,7 @@ elgg.au_sets.set_item = function() {
 	
 	$('body').prepend('<div class="au-sets-selector au-sets-throbber hidden" id="'+div_id+'"></div>');
 	var modal = $('#'+div_id);
-	var left = Math.round(offset.left - 230);
+	var left = Math.round(offset.left);
 	var top = Math.round(offset.top + 20);
 
 	// position it relative to the pin link

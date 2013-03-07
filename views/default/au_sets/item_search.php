@@ -44,6 +44,9 @@ if ($items) {
 	echo '</div>';
   }
 }
+else {
+  echo elgg_echo('au_sets:widget:set_item:noresults');
+}
 
 echo '</div>';
 

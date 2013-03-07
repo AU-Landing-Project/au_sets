@@ -71,6 +71,10 @@ form#set-post-edit #description_parent #description_ifr {
   clear: both;
 }
 
+.au-sets-widget-wrapper {
+  float: right;
+}
+
 .au-sets-item-search-results {
   margin-top: 5px;
   max-height: 150px;
@@ -85,6 +89,10 @@ form#set-post-edit #description_parent #description_ifr {
 
 .au-set-item-preview:hover {
   background-color: #FAFFA8
+}
+
+.au-sets-pinboard-help {
+  padding-bottom: 10px;
 }
 
 /* Widget moving mods */
@@ -130,13 +138,18 @@ form#set-post-edit #description_parent #description_ifr {
   margin: 3px;
 }
 
-.au-sets-preview {
+.au-sets-preview,
+.au-sets-widget-view {
   float: right;
   background-color: #333333;
   border: 1px solid white;
   min-height: 50px;
   text-align: center;
   color: white;
+}
+
+.au-sets-widget-view {
+  min-height: 0;
 }
 
 /* make the preview lighter if selected */

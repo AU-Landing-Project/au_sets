@@ -32,7 +32,31 @@ $widget_types = elgg_get_widget_types($available_widgets_context);
 elgg_push_context('widgets');
 
 $widgets = elgg_get_widgets($owner->guid, $context);
+
+// are we in view or layout mode?
+$min_height = '0px';
 $preview = false;
+if ($owner->canEdit()) {
+  $preview = get_input('view_layout', false);
+  
+	if ($preview) {
+	  $helptext = elgg_echo('au_sets:mode:layout:help', array(
+		  elgg_view('output/url', array(
+			  'text' => elgg_echo('au_sets:mode:layout:linktext'),
+			  'href' => $owner->getURL()
+		  ))
+	  ));
+	  $min_height = '50px';
+	}
+	else {
+	  $helptext = elgg_echo('au_sets:mode:view:help', array(
+		  elgg_view('output/url', array(
+			  'text' => elgg_echo('au_sets:mode:view:linktext'),
+			  'href' => $owner->getURL() . '?view_layout=1'
+		  ))
+	  ));
+	}
+}
 
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
@@ -46,18 +70,12 @@ if (elgg_can_edit_widget_layout($context)) {
 		'show_access' => $show_access
 	);
 	echo elgg_view('page/layouts/widgets/add_panel', $params);
-	
-	$preview = get_input('view_layout', false);
-	
-	if ($preview) {
-	  $helptext = elgg_echo('au_sets:mode:layout:help');
-	}
-	else {
-	  $helptext = elgg_echo('au_sets:mode:view:help');
-	}
-	echo elgg_view('output/longtext', array('value' => $helptext, 'class' => 'elgg-subtext'));
 }
 
+
+if ($owner->canEdit()) {
+  echo elgg_view('output/longtext', array('value' => $helptext, 'class' => 'elgg-subtext au-sets-pinboard-help'));
+}
 
 echo elgg_extract("content", $vars);
 $column_index = 0;
@@ -74,25 +92,32 @@ foreach ($widget_columns as $row => $columns) {
 	}
 	
 	$class = 'au-sets-widget-width-' . $width;
-	if (elgg_can_edit_widget_layout($context)) {
+	if (elgg_can_edit_widget_layout($context) && $preview) {
 	  $class .= ' au-sets-widget-editable';
 	}
-	
+
 	echo "<div class=\"elgg-widgets au-sets-widgets au-sets-row-{$row} {$class}\" id=\"elgg-widget-col-$column_index\">";
 	
 	if ($preview) {
-	  echo '<div class="au-sets-preview au-sets-widget-width-100" style="float: none;">' . $column_index . '</div>';
+	  echo '<div class="au-sets-widget-view au-sets-widget-width-100 elgg-state-fixed" style="float: none;">';
+	  echo elgg_echo('au_sets:widget:column', array($column_index));
+	  echo '</div>';
 	}
 	
 	if (sizeof($column_widgets) > 0) {
 	  foreach ($column_widgets as $widget) {
 		if (array_key_exists($widget->handler, $widget_types)) {
 		  // if not in preview mode, wrap widgets that need styling hidden
-		  $widget_class = '';
 		  if (!$preview && ($widget->sets_hide_style == 'yes')) {
-			$widget_class = 'au-sets-hide-style';
+			echo elgg_view('object/widget/widget_alt', array(
+				'entity' => $widget,
+				'show_access' => $show_access,
+				'class' => 'au-sets-hide-style'
+				));
 		  }
-		  echo elgg_view_entity($widget, array('show_access' => $show_access, 'class' => $widget_class));
+		  else {
+			echo elgg_view_entity($widget, array('show_access' => $show_access));
+		  }
 		}
 	  }
 	}
@@ -119,7 +144,7 @@ function au_sets_normalize_widget_height() {
 <?php
   foreach ($widget_columns as $row => $column) {
 ?>
-	$('.au-sets-row-<?php echo $row; ?>').css('min-height', '0px');
+	$('.au-sets-row-<?php echo $row; ?>').css('min-height', '<?php echo $min_height; ?>');
 	elgg.ui.widgets.setMinHeight('.au-sets-row-<?php echo $row; ?>');
 	
 <?php

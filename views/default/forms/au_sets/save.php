@@ -67,11 +67,14 @@ $access_input = elgg_view('input/access', array(
 	'value' => $vars['access_id']
 ));
 
+$access_options = get_write_access_array();
+unset($access_options[ACCESS_PUBLIC]);
 $write_access_label = elgg_echo('au_sets:label:write_access');
 $write_access_input = elgg_view('input/access', array(
 	'name' => 'write_access_id',
 	'id' => 'au_set_write_access_id',
-	'value' => $vars['write_access_id']
+	'value' => $vars['write_access_id'],
+	'options_values' => $access_options
 ));
 $write_access_help = elgg_view('output/longtext', array(
 	'value' => elgg_echo('au_sets:write_access:help'),

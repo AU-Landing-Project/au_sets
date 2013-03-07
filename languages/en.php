@@ -35,6 +35,7 @@ $english = array(
 	'au_sets:ingroup' => "in the group %s",
 	'au_sets:error:unpinned' => "Content is already unpinned - possibly an incorrect id",
 	'au_sets:create:new:set:with:pin' => "Create a new Pinboard and pin this",
+	'au_sets:write' => "Create a Pinboard",
 	
 	// Editing
 	'au_sets:add' => 'Add Pinboard',
@@ -50,15 +51,18 @@ $english = array(
 	'sets:edit' => 'Edit',
 	'au_sets:layout:type' => "Layout %s",
 	'au_sets:invalid:layout' => "Invalid Layout",
-	'au_sets:view:layout' => "Layout Mode",
-	'au_sets:hide:layout' => "View Mode",
-	'au_sets:mode:layout:help' => "Here you can see all potential places for widgets, as well as edit all widgets.  To view the page as others will see it switch to 'view mode'",
-	'au_sets:mode:view:help' => "If you cannot find the space to move a widget, or cannot edit a widget with styles disabled switch to 'layout mode'",
+	'au_sets:view:layout' => "Edit Pinboard Widgets",
+	'au_sets:hide:layout' => "View Pinboard Display",
+	'au_sets:mode:layout:help' => "Here you can edit and move around widgets.  Add widgets by clicking the 'add widget' button then drag them into place.  To view the display as others will see it switch to %s",
+	'au_sets:mode:view:help' => "This is how all visitors will see your pinboard.  To add/edit widgets switch to %s",
+	'au_sets:mode:layout:linktext' => 'display mode',
+	'au_sets:mode:view:linktext' => 'widget edit mode',
 	'au_sets:autopinned' => "The item '%s' has been pinned to this board",
 	'pinboards:add' => "Add Pinboard",
 	'pinboards:edit' => "Edit Pinboard",
 	'au_sets:write_access:help' => "Users granted edit rights will be able to change any of the fields on this page, as well as add/edit/delete widgets.  Only the owner of this pinboard or a site administrator may delete the pinboard.",
 	'au_sets:link:view:set' => 'View this pinboard',
+	'au_sets:widget:column' => 'Column %s',
 	
 	
 	// messages
@@ -119,6 +123,7 @@ View and comment on the new Pinboard:
 	'au_sets:widget:sets:description' => "Display recently created pinboards",
 	'au_sets:widget:pins:title' => "Pins",
 	'au_sets:widget:pins:description' => "Most recently pinned content across all of your pinboards",
+	'au_sets:widget:set_item:noresults' => "There is no content pinned to this board.",
 	
 	// settings
 	'au_sets:use:pin:icon' => "Use the pin icon to launch the pin modal?",

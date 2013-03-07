@@ -188,11 +188,43 @@ function au_sets_permissions_check($hook, $type, $return, $params) {
 
 function au_sets_widget_layout_perms($hook, $type, $return, $params) {
   if (elgg_instanceof($params['page_owner'], 'object', 'au_set')) {	
-	if ($params['page_owner']->canEdit($params['user']->guid)) {
+	$preview = get_input('view_layout', false);
+	if ($params['page_owner']->canEdit($params['user']->guid) && $preview) {
 	  return true;
 	}
-	
-	return true;
+  }
+  
+  return $return;
+}
+
+
+/**
+ *	Determine if we can edit a widget
+ * @param type $hook
+ * @param type $type
+ * @param type $return
+ * @param type $params
+ */
+function au_sets_widget_permissions_check($hook, $type, $return, $params) {
+  if (!elgg_instanceof($params['entity'], 'object', 'widget')) {
+	return $return;
+  }
+  
+  if ($params['entity']->getContext() != 'pinboards') {
+	return $return;
+  }
+  
+  // allow us to edit it right out of the gate
+  if (get_input('action') == 'widgets/add') {
+	return $return;
+  }
+  
+  if (elgg_get_context() == 'widgets') {
+	$preview = get_input('view_layout', false);
+  
+	if (!$preview) {
+	  return false;
+	}
   }
   
   return $return;
