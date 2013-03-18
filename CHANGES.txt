@@ -2,6 +2,11 @@
 
 x.x (mm/dd/yyyy):
 
+1.8 ():
+  - new plugin setting to allow usage of au_widgets in pinboards
+  - enforces plugin priority with regard to au_widgets
+  -
+
 1.7 (03/07/2013):
   - adds in missing language string
   - fixes incorrect widget_layout permissions
