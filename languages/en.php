@@ -128,6 +128,7 @@ View and comment on the new Pinboard:
 	// settings
 	'au_sets:use:pin:icon' => "Use the pin icon to launch the pin modal?",
 	'au_sets:change:bookmark:icon' => "Replace the default bookmarks icon? (may reduce confusion with pins)",
+	'au_sets:settings:use:au_widgets' => "Allow AU widgets in pinboards? (blogs/bookmarks/pages/files/liked_content)"
 );
 					
 add_translation("en",$english);

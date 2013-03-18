@@ -25,3 +25,18 @@ echo '&nbsp;';
 echo elgg_echo('au_sets:change:bookmark:icon');
 
 echo '<br><br>';
+
+
+if (elgg_is_active_plugin('au_widgets_framework')) {
+  echo elgg_view('input/dropdown', array(
+	'name' => 'params[use_au_widgets]',
+	'value' => $vars['entity']->use_au_widgets ? $vars['entity']->use_au_widgets : 'no',
+	'options_values' => array(
+		'yes' => elgg_echo('option:yes'),
+		'no' => elgg_echo('option:no')
+	)
+  ));
+  echo '&nbsp;';
+  echo elgg_echo('au_sets:settings:use:au_widgets');
+  echo '<br><br>';
+}

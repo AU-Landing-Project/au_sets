@@ -76,6 +76,30 @@ function au_sets_init() {
   au_sets_add_widget_context('xgadget', 'pinboards');
   au_sets_add_widget_context('au_tagtracker', 'pinboards');
   
+  // use au widgets if it's set
+  $use_au_widgets = elgg_get_plugin_setting('use_au_widgets', 'au_sets');
+  if (elgg_is_active_plugin('au_widgets_framework') && $use_au_widgets == 'yes') {
+	if (elgg_is_active_plugin('au_blog_widget')) {
+	  au_sets_add_widget_context('blog', 'pinboards');
+	}
+	
+	if (elgg_is_active_plugin('au_bookmarks_widget')) {
+	  au_sets_add_widget_context('bookmarks', 'pinboards');
+	}
+	
+	if (elgg_is_active_plugin('au_files_widget')) {
+	  au_sets_add_widget_context('filerepo', 'pinboards');
+	}
+	
+	if (elgg_is_active_plugin('au_pages_widget')) {
+	  au_sets_add_widget_context('pages', 'pinboards');
+	}
+	
+	if (elgg_is_active_plugin('liked_content')) {
+	  au_sets_add_widget_context('liked_content', 'pinboards');
+	}
+  }
+  
   // get all widget handlers and extend the edit form
   $types = elgg_get_widget_types('pinboards', true);
   if (is_array($types)) {
