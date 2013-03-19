@@ -75,10 +75,11 @@ function au_sets_init() {
   au_sets_add_widget_context('rss', 'pinboards');
   au_sets_add_widget_context('xgadget', 'pinboards');
   au_sets_add_widget_context('au_tagtracker', 'pinboards');
+  au_sets_add_widget_context('image_slider', 'pinboards');
   
   // use au widgets if it's set
   $use_au_widgets = elgg_get_plugin_setting('use_au_widgets', 'au_sets');
-  if (elgg_is_active_plugin('au_widgets_framework') && $use_au_widgets == 'yes') {
+  if ($use_au_widgets == 'yes') {
 	if (elgg_is_active_plugin('au_blog_widget')) {
 	  au_sets_add_widget_context('blog', 'pinboards');
 	}
@@ -98,6 +99,18 @@ function au_sets_init() {
 	if (elgg_is_active_plugin('liked_content')) {
 	  au_sets_add_widget_context('liked_content', 'pinboards');
 	}
+	
+	if (elgg_is_active_plugin('group_tools')) {
+	  au_sets_add_widget_context('group_river_widget', 'pinboards');
+	  au_sets_add_widget_context('featured_groups', 'pinboards');
+	  au_sets_add_widget_context('index_discussion', 'pinboards');
+	}
+	
+	au_sets_add_widget_context('index_activity', 'pinboards');
+	au_sets_add_widget_context('content_by_tag', 'pinboards');
+	au_sets_add_widget_context('index_groups', 'pinboards');
+	au_sets_add_widget_context('au_random_content', 'pinboards');
+	au_sets_add_widget_context('tagcloud', 'pinboards');
   }
   
   // get all widget handlers and extend the edit form

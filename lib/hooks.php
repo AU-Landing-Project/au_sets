@@ -5,6 +5,7 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
 	foreach ($return as $key => $item) {
 	  if ($item->getName() == 'edit') {
 		$return[$key]->setHref('pinboards/edit/' . $params['entity']->getGUID());
+		$return[$key]->setText(elgg_echo('au_sets:pinboard:edit'));
 	  }
 	  
 	  if  ($item->getName() == 'delete' && elgg_is_logged_in()) {

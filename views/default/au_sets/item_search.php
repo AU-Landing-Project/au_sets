@@ -44,7 +44,10 @@ if ($items) {
 	  $icon_subject = $item;
 	}
 	
-	$icon = elgg_view_entity_icon($icon_subject, 'tiny', array('use_hover' => false, 'href' => false, 'use_link' => false));
+	$icon = '';
+	if ($icon_subject) {
+	  $icon = elgg_view_entity_icon($icon_subject, 'tiny', array('use_hover' => false, 'href' => false, 'use_link' => false));
+	}
 	
 	$body = elgg_view('output/url', array(
 		'text' => $item->title ? $item->title : $item->name,

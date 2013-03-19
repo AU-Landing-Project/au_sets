@@ -3,7 +3,7 @@
 x.x (mm/dd/yyyy):
 
 1.8 ():
-  - new plugin setting to allow usage of au_widgets in pinboards
+  - new plugin setting to allow usage of additional widgets in pinboards
   - enforces plugin priority with regard to au_widgets
   - changed tense of search help text to 'you' instead of 'I'
   - changed pinboard search method from FTS to LIKE for forward compatibility with innodb
@@ -11,6 +11,12 @@ x.x (mm/dd/yyyy):
   - fixed poor grammar on single pin widget edit help text
   - added owner link and time created to single pin widget modal
   - fixed invalid entity icons for some entities in single pin widget modal
+  - better language strings for comment widget and style options
+  - added help text to layout selection
+  - enables image_slider widget by default
+  - floats pinboard specific widgets to the top of the list
+  - fixes php warning for non-arrays in item search
+  
 
 1.7 (03/07/2013):
   - adds in missing language string

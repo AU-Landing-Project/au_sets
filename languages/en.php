@@ -1,6 +1,7 @@
 <?php
 
 $english = array(
+	'au_set' => 'Pinboard',
 	'au_sets:set' => 'Pinboard',
 	'au_sets:sets' => 'Pinboards',
 	'item:object:au_set' => 'Pinboard',
@@ -52,7 +53,7 @@ $english = array(
 	'au_sets:layout:type' => "Layout %s",
 	'au_sets:invalid:layout' => "Invalid Layout",
 	'au_sets:view:layout' => "Edit Pinboard Widgets",
-	'au_sets:hide:layout' => "View Pinboard Display",
+	'au_sets:hide:layout' => "View in display mode",
 	'au_sets:mode:layout:help' => "Here you can edit and move around widgets.  Add widgets by clicking the 'add widget' button then drag them into place.  To view the display as others will see it switch to %s",
 	'au_sets:mode:view:help' => "This is how all visitors will see your pinboard.  To add/edit widgets switch to %s",
 	'au_sets:mode:layout:linktext' => 'display mode',
@@ -63,6 +64,8 @@ $english = array(
 	'au_sets:write_access:help' => "Users granted edit rights will be able to change any of the fields on this page, as well as add/edit/delete widgets.  Only the owner of this pinboard or a site administrator may delete the pinboard.",
 	'au_sets:link:view:set' => 'View this pinboard',
 	'au_sets:widget:column' => 'Column %s',
+	'au_sets:label:layout:helptext' => "Choose a layout for where widgets will be placed on the pinboard.  You may change this later by editing the pinboard.",
+	'au_sets:pinboard:edit' => "Edit pinboard",
 	
 	
 	// messages
@@ -97,16 +100,17 @@ View and comment on the new Pinboard:
 	'widget_manager:widgets:lightbox:title:pinboards' => "Widgets for Pinboards",
 	
 	// widgets
+	// note - titles for widgets should start with &shy; as a simply way to get them to float to the top
 	'au_sets:widget:set_avatar:description' => "Display the avatar of the Pinboard in configurable size",
-	'au_sets:widget:set_avatar:title' => "Pinboard Avatar",
-	'au_sets:widget:set_description:title' => "Pinboard Description",
+	'au_sets:widget:set_avatar:title' => "&shy;Pinboard Avatar",
+	'au_sets:widget:set_description:title' => "&shy;Pinboard Description",
 	'au_sets:widget:set_description:description' => "Profile information for the Pinboard, description, author, tags, etc.",
 	'au_sets:num:results' => "Number of items to display",
-	'au_sets:widget:set_list:title' => "Recent Pins",
+	'au_sets:widget:set_list:title' => "&shy;Recent Pins",
 	'au_sets:widget:set_list:description' => "Display a list of recently pinned content",
 	'au_sets:set_list:invalid:entity' => "Widget is not configured or the entity is no longer accessible",
 	'au_sets:set_list:full_view:help' => "Note: some content may not support this option",
-	'au_sets:widget:set_item:title' => "Single Pin",
+	'au_sets:widget:set_item:title' => "&shy;Single Pin",
 	'au_sets:widget:set_item:description' => "Display a single pinned item in either a full or condensed view",
 	'au_sets:set_list:full_view' => "Choose how to display the content",
 	'au_sets:full_view:false' => "Condensed View",
@@ -115,20 +119,22 @@ View and comment on the new Pinboard:
 	'au_sets:item:add:help' => "Note that all users may not be able to see this content depending on its access settings which are independent of the access of this display",
 	'au_sets:not:pinned' => "Content is no longer pinned",
 	'au_sets:comments:off' => "Comments are disabled for this Pinboard",
-	'au_sets:widget:set_comments:title' => "Comments",
+	'au_sets:widget:set_comments:title' => "&shy;Comments",
 	'au_sets:widget:set_comments:description' => "Display comments for this Pinboard",
 	'au_sets:comments:new_comments' => "Allow the addition of new comments?",
-	'au_sets:widget:visibility' => "Hide default widget style?",
+	'au_sets:widget:visibility' => "Hide widget title and border?",
 	'au_sets:widget:sets:title' => "Pinboards",
 	'au_sets:widget:sets:description' => "Display recently created pinboards",
 	'au_sets:widget:pins:title' => "Pins",
 	'au_sets:widget:pins:description' => "Most recently pinned content across all of your pinboards",
 	'au_sets:widget:set_item:noresults' => "There is no content pinned to this board.",
+	'au_sets:option:allowed' => "Allowed",
+	'au_sets:option:disallowed' => "Disallowed",
 	
 	// settings
 	'au_sets:use:pin:icon' => "Use the pin icon to launch the pin modal?",
 	'au_sets:change:bookmark:icon' => "Replace the default bookmarks icon? (may reduce confusion with pins)",
-	'au_sets:settings:use:au_widgets' => "Allow AU widgets in pinboards? (blogs/bookmarks/pages/files/liked_content)"
+	'au_sets:settings:use:au_widgets' => "Allow additional non-pinboard widgets in pinboards? (blogs/bookmarks/pages/files/liked_content/etc)"
 );
 					
 add_translation("en",$english);

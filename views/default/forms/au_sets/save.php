@@ -91,6 +91,10 @@ $guid_input = elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars
 // Layout
 $layout_label = elgg_echo('au_sets:label:layout');
 $layout_input = elgg_view('au_sets/input/layout', $vars);
+$layout_help = elgg_view('output/longtext', array(
+	'value' => elgg_echo('au_sets:label:layout:helptext'),
+	'class' => 'elgg-subtext'
+));
 
 // autopin
 $pin_input = '';
@@ -140,6 +144,7 @@ $categories_input
 
 <div>
   <label for="au_set_layout">$layout_label</label>
+	$layout_help
 	$layout_input
 </div>
 
