@@ -2,7 +2,7 @@
 
 x.x (mm/dd/yyyy):
 
-1.8 ():
+1.8 (03/20/2013):
   - new plugin setting to allow usage of additional widgets in pinboards
   - enforces plugin priority with regard to au_widgets
   - changed tense of search help text to 'you' instead of 'I'
