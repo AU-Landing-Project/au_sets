@@ -66,6 +66,7 @@ $english = array(
 	'au_sets:widget:column' => 'Column %s',
 	'au_sets:label:layout:helptext' => "Choose a layout for where widgets will be placed on the pinboard.  You may change this later by editing the pinboard.",
 	'au_sets:pinboard:edit' => "Edit pinboard",
+	'au_sets:drag:widgets' => "Drag widgets here",
 	
 	
 	// messages

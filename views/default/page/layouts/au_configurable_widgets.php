@@ -100,6 +100,10 @@ foreach ($widget_columns as $row => $columns) {
 	echo "<div class=\"elgg-widgets au-sets-widgets au-sets-row-{$row} {$class}\" id=\"elgg-widget-col-$column_index\">";
 	
 	if ($preview) {
+	  // background div
+	  echo '<div class="au-sets-edit-background elgg-subtext">' . elgg_echo('au_sets:drag:widgets') . '</div>';
+	  
+	  // column header
 	  echo '<div class="au-sets-widget-view au-sets-widget-width-100 elgg-state-fixed" style="float: none;">';
 	  echo elgg_echo('au_sets:widget:column', array($column_index));
 	  echo '</div>';

@@ -124,6 +124,21 @@ form#set-post-edit #description_parent #description_ifr {
   background-color: transparent;
 }
 
+.au-sets-widget-editable {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.au-sets-edit-background {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  left: 5%;
+  text-align: center;
+  padding: 10px 0px 10px 0px;
+  border: 2px dashed #cccccc;
+}
+
 /*  Layout Preview  */
 #au-set-layout-preview {
   width: 410px;
