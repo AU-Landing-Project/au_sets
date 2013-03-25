@@ -26,6 +26,11 @@ $save_button = elgg_view('input/submit', array(
 ));
 $action_buttons = $save_button . $delete_link;
 
+$add_helptext = elgg_view('output/longtext', array(
+	'value' => elgg_echo('au_sets:add:helptext'),
+	'class' => 'elgg-subtext'
+));
+
 $icon_label = elgg_echo('au_sets:label:icon');
 $icon_input = elgg_view("input/file", array('name' => 'icon'));
 
@@ -104,7 +109,9 @@ if ($pin) {
 
 echo <<<___HTML
 
- <div>
+ $add_helptext
+
+<div>
   <label for="au_set_icon">$icon_label</label>
 	$icon_input
 </div>

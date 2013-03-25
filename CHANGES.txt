@@ -2,6 +2,10 @@
 
 x.x (mm/dd/yyyy):
 
+1.9 ():
+  - removed invalid group river widget from pinboards
+  - adds additional help text to add pinboards form
+
 1.8 (03/20/2013):
   - new plugin setting to allow usage of additional widgets in pinboards
   - enforces plugin priority with regard to au_widgets

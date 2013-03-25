@@ -40,6 +40,7 @@ $english = array(
 	
 	// Editing
 	'au_sets:add' => 'Add Pinboard',
+	'au_sets:add:helptext' => "This form lets you set the basic details about a pinboard, including its description, access levels and layout. Once you have created a pinboard, you will be able to fill it with widgets displaying content from around the site and from other sites",
 	'sets:add' => 'Add Pinboard',
 	'au_sets:edit' => 'Edit Pinboard',
 	'au_sets:body' => 'Body',

@@ -101,7 +101,6 @@ function au_sets_init() {
 	}
 	
 	if (elgg_is_active_plugin('group_tools')) {
-	  au_sets_add_widget_context('group_river_widget', 'pinboards');
 	  au_sets_add_widget_context('featured_groups', 'pinboards');
 	  au_sets_add_widget_context('index_discussion', 'pinboards');
 	}
