@@ -6,8 +6,6 @@ $entity_guid = get_input('entity_guid');
 $set = get_entity($set_guid);
 $entity = get_entity($entity_guid);
 
-// make sure we load our functions
-elgg_load_library('au_sets');
 
 $error = au_sets_pin_sanity_check($entity, $set);
 

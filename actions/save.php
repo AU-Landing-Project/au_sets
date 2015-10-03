@@ -160,7 +160,6 @@ if (!$error) {
 		}
 		
 		if ($pin) {
-		  elgg_load_library('au_sets');
 		  if (au_sets_pin_entity($pin, $set)) {
 			$name = $pin->title ? $pin->title : $pin->name;
 			system_message(elgg_echo('au_sets:autopinned', array($name)));

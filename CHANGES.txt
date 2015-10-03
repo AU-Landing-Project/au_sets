@@ -2,6 +2,10 @@
 
 x.x (mm/dd/yyyy):
 
+2.0.0 ():
+ - 1.9+ upgrade
+ - more efficient queries for friends
+
 1.9 ():
   - removed invalid group river widget from pinboards
   - adds additional help text to add pinboards form

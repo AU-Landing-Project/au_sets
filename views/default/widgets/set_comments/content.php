@@ -5,7 +5,7 @@ $new_comments = ($vars['entity']->new_comments != 'no') ? true : false;
 
 if ($set->comments_on != 'Off') {
   $context = elgg_get_context();
-  elgg_set_context('sets'); // remove widget context so pagination can happen
+  elgg_set_context('pinboards'); // remove widget context so pagination can happen
   echo elgg_view_comments($set, $new_comments);
   elgg_set_context($context);
 }

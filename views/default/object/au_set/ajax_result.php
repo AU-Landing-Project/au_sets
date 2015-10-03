@@ -1,7 +1,5 @@
 <?php
 
-elgg_load_library('au_sets');
-
 $set = elgg_extract('entity', $vars, FALSE);
 $entity_guid = elgg_extract('target_entity_guid', $vars, false);
 $entity = get_entity($entity_guid);

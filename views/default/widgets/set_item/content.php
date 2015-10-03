@@ -1,7 +1,5 @@
 <?php
 
-elgg_load_library('au_sets');
-
 $guid = $vars['entity']->subject_guid;
 $full = $vars['entity']->full_view ? true : false;
 $set = $vars['entity']->getContainerEntity();

@@ -1,6 +1,6 @@
 <?php
 
-$english = array(
+return array(
 	'au_set' => 'Pinboard',
 	'au_sets:set' => 'Pinboard',
 	'au_sets:sets' => 'Pinboards',
@@ -138,5 +138,3 @@ View and comment on the new Pinboard:
 	'au_sets:change:bookmark:icon' => "Replace the default bookmarks icon? (may reduce confusion with pins)",
 	'au_sets:settings:use:au_widgets' => "Allow additional non-pinboard widgets in pinboards? (blogs/bookmarks/pages/files/liked_content/etc)"
 );
-					
-add_translation("en",$english);
