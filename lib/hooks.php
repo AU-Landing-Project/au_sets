@@ -2,7 +2,7 @@
 
 namespace AU\Sets;
 
-function au_sets_entity_menu($hook, $type, $return, $params) {
+function entity_menu_hook($hook, $type, $return, $params) {
 	if (is_array($return) && elgg_instanceof($params['entity'], 'object', 'au_set')) {
 		foreach ($return as $key => $item) {
 			if ($item->getName() == 'edit') {
@@ -73,7 +73,7 @@ function au_sets_entity_menu($hook, $type, $return, $params) {
  * replaces the bookmarks icon
  */
 
-function au_sets_extras_menu($hook, $type, $return, $params) {
+function extras_menu_hook($hook, $type, $return, $params) {
 	foreach ($return as $key => $item) {
 		if ($item->getName() == 'bookmark') {
 			$return[$key]->setText('<span class="elgg-icon au-sets-bookmark-icon"></span>');
@@ -83,7 +83,7 @@ function au_sets_extras_menu($hook, $type, $return, $params) {
 	return $return;
 }
 
-function au_sets_icon_url_override($hook, $type, $return, $params) {
+function pinboard_icon_url_override($hook, $type, $return, $params) {
 	if (!elgg_instanceof($params['entity'], 'object', 'au_set')) {
 		return $return;
 	}
@@ -96,37 +96,11 @@ function au_sets_icon_url_override($hook, $type, $return, $params) {
 	return elgg_get_site_url() . 'pinboards/icon/' . $params['entity']->getGUID() . '/' . $params['size'] . '/' . $icontime . '.jpg';
 }
 
-/**
- * Set the notification message body
- * 
- * @param string $hook    Hook name
- * @param string $type    Hook type
- * @param string $message The current message body
- * @param array  $params  Parameters about the blog posted
- * @return string
- */
-function au_sets_notify_message($hook, $type, $message, $params) {
-	$entity = $params['entity'];
-	$to_entity = $params['to_entity'];
-	$method = $params['method'];
-	if (elgg_instanceof($entity, 'object', 'au_set')) {
-		$descr = $entity->excerpt;
-		$title = $entity->title;
-		$owner = $entity->getOwnerEntity();
-		return elgg_echo('au_sets:notification', array(
-			$owner->name,
-			$title,
-			$descr,
-			$entity->getURL()
-		));
-	}
-	return null;
-}
 
 /**
  * Add a menu item to an ownerblock
  */
-function au_sets_owner_block_menu($hook, $type, $return, $params) {
+function owner_block_menu_hook($hook, $type, $return, $params) {
 	if (elgg_instanceof($params['entity'], 'user')) {
 		$url = "pinboards/owner/{$params['entity']->username}";
 		$item = new ElggMenuItem('set', elgg_echo('au_sets:sets'), $url);
@@ -149,7 +123,7 @@ function au_sets_owner_block_menu($hook, $type, $return, $params) {
  * @param type $return
  * @param type $params
  */
-function au_sets_permissions_check($hook, $type, $return, $params) {
+function permissions_check($hook, $type, $return, $params) {
 	if (!elgg_instanceof($params['entity'], 'object', 'au_set')) {
 		return $return;
 	}
@@ -185,7 +159,7 @@ function au_sets_permissions_check($hook, $type, $return, $params) {
 	return $return;
 }
 
-function au_sets_widget_layout_perms($hook, $type, $return, $params) {
+function widget_layout_perms($hook, $type, $return, $params) {
 	if (elgg_instanceof($params['page_owner'], 'object', 'au_set')) {
 		$preview = get_input('view_layout', false);
 		if ($params['page_owner']->canEdit($params['user']->guid) && $preview) {
@@ -203,7 +177,7 @@ function au_sets_widget_layout_perms($hook, $type, $return, $params) {
  * @param type $return
  * @param type $params
  */
-function au_sets_widget_permissions_check($hook, $type, $return, $params) {
+function widget_permissions_check($hook, $type, $return, $params) {
 	if (!elgg_instanceof($params['entity'], 'object', 'widget')) {
 		return $return;
 	}
@@ -241,4 +215,28 @@ function pinboards_url($hook, $type, $return, $params) {
 	$friendly_title = elgg_get_friendly_title($params['entity']->title);
 
 	return "pinboards/view/{$params['entity']->guid}/$friendly_title";
+}
+
+
+function pinboard_prepare_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+    $owner = $params['event']->getActor();
+    $recipient = $params['recipient'];
+    $language = $params['language'];
+    $method = $params['method'];
+	
+	$notification->subject = elgg_echo('au_sets:newset', array(), $language);
+	
+	// Message body for the notification
+    $notification->body = elgg_echo('au_sets:notification', array(
+        $owner->name,
+        $entity->title,
+        $entity->excerpt,
+        $entity->getURL()
+    ), $language);
+	
+	// Short summary about the notification
+    $notification->summary = elgg_echo('au_sets:notify:summary', array($entity->title), $language);
+	
+	return $notification;
 }

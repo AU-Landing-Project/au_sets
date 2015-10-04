@@ -39,25 +39,25 @@ function init() {
 	// make it show up in search
 	elgg_register_entity_type('object', 'au_set');
 
-	elgg_register_plugin_hook_handler('permissions_check', 'object', 'au_sets_permissions_check');
-	elgg_register_plugin_hook_handler('permissions_check', 'object', 'au_sets_widget_permissions_check');
-	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'au_sets_widget_layout_perms');
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'au_sets_entity_menu');
-	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'au_sets_owner_block_menu');
+	elgg_register_plugin_hook_handler('permissions_check', 'object', __NAMESPACE__ . '\\permissions_check');
+	elgg_register_plugin_hook_handler('permissions_check', 'object', __NAMESPACE__ . '\\widget_permissions_check');
+	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', __NAMESPACE__ . '\\widget_layout_perms');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', __NAMESPACE__ . '\\entity_menu_hook');
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', __NAMESPACE__ . '\\owner_block_menu_hook');
 	elgg_register_plugin_hook_handler('entity:url', 'object', __NAMESPACE__ . '\\pinboards_url');
 
-	$replace_bookmarks_icon = elgg_get_plugin_setting('change_bookmark_icon', 'au_sets');
+	$replace_bookmarks_icon = elgg_get_plugin_setting('change_bookmark_icon', PLUGIN_ID);
 	if ($replace_bookmarks_icon != 'no') {
-		elgg_register_plugin_hook_handler('register', 'menu:extras', 'au_sets_extras_menu', 1000);
+		elgg_register_plugin_hook_handler('register', 'menu:extras', __NAMESPACE__ . '\\extras_menu_hook', 1000);
 	}
 
 	// notifications
-	register_notification_object('object', 'au_set', elgg_echo('au_sets:newset'));
-	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'au_sets_notify_message');
+	elgg_register_notification_event('object', 'au_set', array('create'));
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:au_set', __NAMESPACE__ . '\\pinboard_prepare_notification');
 
 	// determine urls
 	elgg_register_entity_url_handler('object', 'au_set', 'au_sets_url_handler');
-	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'au_sets_icon_url_override');
+	elgg_register_plugin_hook_handler('entity:icon:url', 'object', __NAMESPACE__ . '\\pinboard_icon_url_override');
 
 	// add a site navigation item
 	$item = new ElggMenuItem('sets', elgg_echo('au_sets:sets'), 'pinboards/all');
@@ -71,53 +71,43 @@ function init() {
 	elgg_register_ajax_view('au_sets/search_results');
 	elgg_register_ajax_view('au_sets/item_search');
 
-	elgg_register_widget_type('set_avatar', elgg_echo("au_sets:widget:set_avatar:title"), elgg_echo("au_sets:widget:set_avatar:description"), 'pinboards', TRUE);
-	elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), 'pinboards', TRUE);
-	elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), 'pinboards', TRUE);
-	elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), 'pinboards', TRUE);
-	elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), 'pinboards', TRUE);
-	elgg_register_widget_type('sets', elgg_echo("au_sets:widget:sets:title"), elgg_echo("au_sets:widget:sets:description"), 'profile,groups,dashboard', TRUE);
+	elgg_register_widget_type('set_avatar', elgg_echo("au_sets:widget:set_avatar:title"), elgg_echo("au_sets:widget:set_avatar:description"), array('pinboards'), TRUE);
+	elgg_register_widget_type('set_description', elgg_echo("au_sets:widget:set_description:title"), elgg_echo("au_sets:widget:set_description:description"), array('pinboards'), TRUE);
+	elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), array('pinboards'), TRUE);
+	elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), array('pinboards'), TRUE);
+	elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), array('pinboards'), TRUE);
+	elgg_register_widget_type('sets', elgg_echo("au_sets:widget:sets:title"), elgg_echo("au_sets:widget:sets:description"), array('profile','groups','dashboard'), TRUE);
 
-	au_sets_add_widget_context('free_html', 'pinboards');
-	au_sets_add_widget_context('tabtext', 'pinboards');
-	au_sets_add_widget_context('rss', 'pinboards');
-	au_sets_add_widget_context('xgadget', 'pinboards');
-	au_sets_add_widget_context('au_tagtracker', 'pinboards');
-	au_sets_add_widget_context('image_slider', 'pinboards');
+	add_widget_context('free_html', 'pinboards');
+	add_widget_context('tabtext', 'pinboards');
+	add_widget_context('rss', 'pinboards');
+	add_widget_context('xgadget', 'pinboards');
+	add_widget_context('au_tagtracker', 'pinboards');
+	add_widget_context('image_slider', 'pinboards');
 
 	// use au widgets if it's set
-	$use_au_widgets = elgg_get_plugin_setting('use_au_widgets', 'au_sets');
-	if ($use_au_widgets == 'yes') {
-		if (elgg_is_active_plugin('au_blog_widget')) {
-			au_sets_add_widget_context('blog', 'pinboards');
-		}
+	$use_au_widgets = elgg_get_plugin_setting('use_au_widgets', PLUGIN_ID);
+	if ($use_au_widgets == 'yes' && elgg_is_active_plugin('au_widgets')) {
+		add_widget_context('blog', 'pinboards');
 
-		if (elgg_is_active_plugin('au_bookmarks_widget')) {
-			au_sets_add_widget_context('bookmarks', 'pinboards');
-		}
+		add_widget_context('bookmarks', 'pinboards');
+		
+		add_widget_context('filerepo', 'pinboards');
 
-		if (elgg_is_active_plugin('au_files_widget')) {
-			au_sets_add_widget_context('filerepo', 'pinboards');
-		}
+		add_widget_context('pages', 'pinboards');
 
-		if (elgg_is_active_plugin('au_pages_widget')) {
-			au_sets_add_widget_context('pages', 'pinboards');
-		}
-
-		if (elgg_is_active_plugin('liked_content')) {
-			au_sets_add_widget_context('liked_content', 'pinboards');
-		}
+		add_widget_context('liked_content', 'pinboards');
 
 		if (elgg_is_active_plugin('group_tools')) {
-			au_sets_add_widget_context('featured_groups', 'pinboards');
-			au_sets_add_widget_context('index_discussion', 'pinboards');
+			add_widget_context('featured_groups', 'pinboards');
+			add_widget_context('index_discussion', 'pinboards');
 		}
 
-		au_sets_add_widget_context('index_activity', 'pinboards');
-		au_sets_add_widget_context('content_by_tag', 'pinboards');
-		au_sets_add_widget_context('index_groups', 'pinboards');
-		au_sets_add_widget_context('au_random_content', 'pinboards');
-		au_sets_add_widget_context('tagcloud', 'pinboards');
+		add_widget_context('index_activity', 'pinboards');
+		add_widget_context('content_by_tag', 'pinboards');
+		add_widget_context('index_groups', 'pinboards');
+		add_widget_context('au_random_content', 'pinboards');
+		add_widget_context('tagcloud', 'pinboards');
 	}
 
 	// get all widget handlers and extend the edit form

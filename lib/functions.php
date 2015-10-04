@@ -1,5 +1,7 @@
 <?php
 
+namespace AU\Sets;
+
 /**
  * Returns bool whether the entity is already pinned
  * assumes $entity and $set are valid objects
@@ -7,7 +9,7 @@
  * @param type $entity
  * @param type $set
  */
-function au_sets_is_pinned($entity, $set) {
+function is_pinned($entity, $set) {
   return check_entity_relationship($entity->guid, AU_SETS_PINNED_RELATIONSHIP, $set->guid);
 }
 
@@ -18,7 +20,7 @@ function au_sets_is_pinned($entity, $set) {
  * @param ElggObject       $set
  * @return array
  */
-function au_sets_prepare_form_vars($set = NULL) {
+function prepare_form_vars($set = NULL) {
 
 	// input names => defaults
 	$values = array(
@@ -60,9 +62,9 @@ function au_sets_prepare_form_vars($set = NULL) {
  * @param type $set
  * @param type $user
  */
-function au_sets_pin_entity($entity, $set, $user = NULL) {
+function pin_entity($entity, $set, $user = NULL) {
   
-  if (!au_sets_pin_sanity_check($entity, $set, $user)) {
+  if (!pin_sanity_check($entity, $set, $user)) {
 	return add_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
   }
   
@@ -77,7 +79,7 @@ function au_sets_pin_entity($entity, $set, $user = NULL) {
  * @param type $user
  * @return boolean
  */
-function au_sets_pin_sanity_check($entity, $set, $user = NULL) {
+function pin_sanity_check($entity, $set, $user = NULL) {
   //make sure we have an entity
   if (!elgg_instanceof($entity)) {
 	return elgg_echo('au_sets:error:invalid:entity');
@@ -114,9 +116,9 @@ function au_sets_pin_sanity_check($entity, $set, $user = NULL) {
  * @param type $set
  * @param type $user
  */
-function au_sets_unpin_entity($entity, $set, $user = NULL) {
+function unpin_entity($entity, $set, $user = NULL) {
   
-  if (!au_sets_pin_sanity_check($entity, $set, $user)) {
+  if (!pin_sanity_check($entity, $set, $user)) {
 	return remove_entity_relationship($entity->getGUID(), AU_SETS_PINNED_RELATIONSHIP, $set->getGUID());
   }
   
@@ -126,12 +128,11 @@ function au_sets_unpin_entity($entity, $set, $user = NULL) {
 
 /**
  *  returns an array of accesses the user can write to sets
- * 	this is in start because we use it for a lot of hooks
  * 
  * @param type $user
  * @return type
  */
-function au_sets_get_write_accesses($user) {
+function get_pinboard_write_accesses($user) {
 	if (!elgg_instanceof($user, 'user')) {
 		return array(ACCESS_PUBLIC);
 	}
@@ -150,7 +151,7 @@ function au_sets_get_write_accesses($user) {
 }
 
 
-function au_sets_add_widget_context($handle, $context) {
+function add_widget_context($handle, $context) {
 
 	if (!elgg_is_widget_type($handle)) {
 		return false;

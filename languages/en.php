@@ -86,6 +86,7 @@ return array(
 	
 	/* notifications */
 	'au_sets:newset' => 'A new Pinboard has been created',
+	'au_sets:notify:summary' => 'A new pinboard has been created - "%s"',
 	'au_sets:notification' =>
 '
 %s made a new Pinboard.
