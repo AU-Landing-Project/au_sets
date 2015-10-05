@@ -19,11 +19,6 @@ function init() {
 
 	elgg_extend_view('css/elgg', 'css/au_sets');
 	elgg_require_js('au_sets');
-	
-	elgg_extend_view('page/layouts/one_column', 'au_sets/navigation/title_menu', 0);
-
-	// add inline javascript to unpin anything
-	elgg_extend_view('page/components/list', 'au_sets/components/list');
 
 	//register our actions
 	elgg_register_action("au_sets/save", __DIR__ . "/actions/save.php");
@@ -45,6 +40,7 @@ function init() {
 	elgg_register_plugin_hook_handler('register', 'menu:entity', __NAMESPACE__ . '\\entity_menu_hook');
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', __NAMESPACE__ . '\\owner_block_menu_hook');
 	elgg_register_plugin_hook_handler('entity:url', 'object', __NAMESPACE__ . '\\pinboards_url');
+	elgg_register_plugin_hook_handler('entity:icon:url', 'object', __NAMESPACE__ . '\\pinboard_icon_url_override');
 
 	$replace_bookmarks_icon = elgg_get_plugin_setting('change_bookmark_icon', PLUGIN_ID);
 	if ($replace_bookmarks_icon != 'no') {
@@ -55,12 +51,8 @@ function init() {
 	elgg_register_notification_event('object', 'au_set', array('create'));
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:au_set', __NAMESPACE__ . '\\pinboard_prepare_notification');
 
-	// determine urls
-	elgg_register_entity_url_handler('object', 'au_set', 'au_sets_url_handler');
-	elgg_register_plugin_hook_handler('entity:icon:url', 'object', __NAMESPACE__ . '\\pinboard_icon_url_override');
-
 	// add a site navigation item
-	$item = new ElggMenuItem('sets', elgg_echo('au_sets:sets'), 'pinboards/all');
+	$item = new \ElggMenuItem('sets', elgg_echo('au_sets:sets'), 'pinboards/all');
 	elgg_register_menu_item('site', $item);
 
 	// Add group option
@@ -190,20 +182,23 @@ function pinboards_page_handler($page) {
 		case 'add':
 			gatekeeper();
 			elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
-			elgg_set_page_owner_guid($pinboard->guid);
 			echo elgg_view('resources/au_sets/edit', array(
 				'guid' => $page[1],
-				'action' => 'add'
+				'action_type' => 'add'
 			));
 			return true;
 			break;
 		case 'edit':
 			gatekeeper();
-			elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
-			elgg_set_page_owner_guid($pinboard->guid);
+			$pinboard = get_entity($page[1]);
+			if (!elgg_instanceof($pinboard, 'object', 'au_set')) {
+				return false;
+			}
+
+			elgg_set_page_owner_guid($pinboard->container_guid);
 			echo elgg_view('resources/au_sets/edit', array(
 				'guid' => $page[1],
-				'action' => 'edit'
+				'action_type' => 'edit'
 			));
 			break;
 		case 'group':
@@ -231,6 +226,7 @@ function pinboards_page_handler($page) {
 			));
 			return true;
 		case 'list':
+			elgg_set_page_owner_guid($page[1]);
 			echo elgg_view('resources/au_sets/list', array(
 				'guid' => $page[1]
 			));

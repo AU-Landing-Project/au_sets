@@ -36,7 +36,8 @@ $content = elgg_list_entities($options);
 $body = elgg_view_layout('content', array(
 	'filter_context' => $filter_context,
 	'filter' => $filter,
-	'content' => $content
+	'content' => $content,
+	'title' => $title
 		));
 
-echo elgg_view_page($params['title'], $body);
+echo elgg_view_page($title, $body);

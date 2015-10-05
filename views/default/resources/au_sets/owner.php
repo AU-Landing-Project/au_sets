@@ -71,7 +71,8 @@ $body = elgg_view_layout('content', array(
 	'filter_context' => $filter_context,
 	'filter' => $filter,
 	'content' => $content,
-	'sidebar' => $sidebar
+	'sidebar' => $sidebar,
+	'title' => $title
 		));
 
-echo elgg_view_page($params['title'], $body);
+echo elgg_view_page($title, $body);

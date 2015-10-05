@@ -4,12 +4,11 @@ namespace AU\Sets;
 
 $filter = '';
 
-$vars = array();
 $vars['id'] = 'set-post-edit';
 $vars['class'] = 'elgg-form-alt';
 
 $sidebar = '';
-if ($vars['action'] == 'edit') {
+if ($vars['action_type'] == 'edit') {
 	$pinboard = get_entity((int) $vars['guid']);
 
 	$title = elgg_echo('au_sets:edit');
@@ -21,7 +20,7 @@ if ($vars['action'] == 'edit') {
 
 		$title .= ": \"{$pinboard->title}\"";
 
-		$body_vars = au_sets_prepare_form_vars($pinboard);
+		$body_vars = prepare_form_vars($pinboard);
 		$form_vars = array('enctype' => 'multipart/form-data');
 
 		elgg_push_breadcrumb($pinboard->title, $pinboard->getURL());
@@ -33,7 +32,7 @@ if ($vars['action'] == 'edit') {
 	}
 } else {
 	elgg_push_breadcrumb(elgg_echo('au_sets:add'));
-	$body_vars = au_sets_prepare_form_vars(null);
+	$body_vars = prepare_form_vars(null);
 	$form_vars = array('enctype' => 'multipart/form-data');
 
 	$title = elgg_echo('au_sets:add');
@@ -41,7 +40,7 @@ if ($vars['action'] == 'edit') {
 }
 
 
-$body = elgg_view_layout('one_column', array(
+$body = elgg_view_layout('content', array(
 	'title' => $title,
 	'content' => $content,
 	'filter' => $filter,

@@ -1,4 +1,7 @@
 <?php
+
+namespace AU\Sets;
+
 /**
  * This view is called via ajax
  */

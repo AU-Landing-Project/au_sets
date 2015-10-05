@@ -59,6 +59,8 @@ if ($owner->canEdit()) {
 	}
 }
 
+echo "<div class='elgg-layout-widgets layout-widgets-" . $context . "'>";
+
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
 		echo elgg_view('page/layouts/widgets/add_button');
@@ -97,16 +99,18 @@ foreach ($widget_columns as $row => $columns) {
 	  $class .= ' au-sets-widget-editable';
 	}
 
-	echo "<div class=\"elgg-widgets au-sets-widgets au-sets-row-{$row} {$class}\" id=\"elgg-widget-col-$column_index\">";
+	echo "<div class=\"elgg-widgets au-sets-widgets au-sets-row au-sets-row-{$row} {$class}\" id=\"elgg-widget-col-$column_index\">";
 	
 	if ($preview) {
-	  // background div
-	  echo '<div class="au-sets-edit-background elgg-subtext">' . elgg_echo('au_sets:drag:widgets') . '</div>';
 	  
 	  // column header
 	  echo '<div class="au-sets-widget-view au-sets-widget-width-100 elgg-state-fixed" style="float: none;">';
 	  echo elgg_echo('au_sets:widget:column', array($column_index));
+	  echo '<div class="elgg-subtext">' . elgg_echo('au_sets:drag:widgets') . '</div>';
 	  echo '</div>';
+	  
+	  // background div
+	  
 	}
 	
 	if (sizeof($column_widgets) > 0) {
@@ -132,30 +136,8 @@ foreach ($widget_columns as $row => $columns) {
   // row complete, clear float
   echo '<div style="clear: both;"></div>';
 }
+echo '</div>';
 
 elgg_pop_context();
 
 echo elgg_view('graphics/ajax_loader', array('id' => 'elgg-widget-loader'));
-
-// note that core elgg js not set up for vertically stacked widget containers
-// will add wierd and unpredictable min-height settings depending on the widgets contained
-// use some js to reset the min-height to 0, then recalculate min-height based on rows
-// instead of all containers
-?>
-
-<script type="text/javascript">
-
-function au_sets_normalize_widget_height() {
-<?php
-  foreach ($widget_columns as $row => $column) {
-?>
-	$('.au-sets-row-<?php echo $row; ?>').css('min-height', '<?php echo $min_height; ?>');
-	elgg.ui.widgets.setMinHeight('.au-sets-row-<?php echo $row; ?>');
-	
-<?php
-  }
-?>
-}
-
-elgg.register_hook_handler('init', 'system', au_sets_normalize_widget_height, 1000);
-</script>

@@ -12,7 +12,7 @@ $tabs = array(
 		'selected' => ($edit_url == current_page_url())
 	),
 	array(
-		'text' => elgg_echo('list'),
+		'text' => elgg_echo('List'),
 		'href' => $list_url,
 		'selected' => ($list_url == current_page_url())
 	)

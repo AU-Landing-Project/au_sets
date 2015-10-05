@@ -1,5 +1,7 @@
 <?php
 
+namespace AU\Sets;
+
 $set = $vars['entity']->getContainerEntity();
 $limit = $vars['entity']->num_results ? $vars['entity']->num_results : 10;
 

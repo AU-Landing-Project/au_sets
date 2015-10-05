@@ -1,5 +1,7 @@
 <?php
 
+namespace AU\Sets;
+
 $set = elgg_extract('entity', $vars, FALSE);
 $entity_guid = elgg_extract('target_entity_guid', $vars, false);
 $entity = get_entity($entity_guid);
@@ -45,7 +47,7 @@ $pin_link = elgg_view('output/url', array(
 
 $class = 'au-set-result';
 $title = '';
-if (au_sets_is_pinned($entity, $set)) {
+if (is_pinned($entity, $set)) {
   $class .= ' au-set-result-pinned';
   $title .= ' title="' . elgg_echo('au_sets:error:existing:pin') . '"';
 }

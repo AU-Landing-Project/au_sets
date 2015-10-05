@@ -1,5 +1,7 @@
 <?php
 
+namespace AU\Sets;
+
 /**
  * If $vars['query'] exists then do as a search on title
  * otherwise return latest 5 results
@@ -24,7 +26,7 @@ $query = sanitise_string($vars['query']);
 
 
 $user = elgg_get_logged_in_user_entity();
-$write_accesses = au_sets_get_write_accesses($user);
+$write_accesses = get_pinboard_write_accesses($user);
 
 
 $dbprefix = elgg_get_config('dbprefix');
@@ -73,9 +75,6 @@ $options['wheres'][] = "e.guid != {$entity->guid}";
 
 // if we're doing a search
 if ($query) {
-  //$options['selects'] = array("MATCH(o.title, o.description) AGAINST('$query') as relevance");
-  //$options['wheres'][] = "MATCH(o.title, o.description) AGAINST('$query')";
-  //$options['order_by'] = 'relevance DESC';
   $options['wheres'][] = "(o.title LIKE '%{$query}%' OR o.description LIKE '%{$query}%')";
 }
 

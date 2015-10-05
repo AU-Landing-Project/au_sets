@@ -21,7 +21,7 @@ if (!in_array($size, array('large', 'medium', 'small', 'tiny', 'master', 'topbar
 	$size = "medium";
 }
 
-$filehandler = new ElggFile();
+$filehandler = new \ElggFile();
 $filehandler->owner_guid = $pinboard->owner_guid;
 $filehandler->setFilename("pinboards/" . $pinboard->guid . $size . ".jpg");
 
@@ -32,7 +32,7 @@ if (!file_exists($filehandler->getFilenameOnFilestore())) {
 
 $success = false;
 if ($filehandler->open("read")) {
-	if ($contents = $filehandler->read($filehandler->size())) {
+	if ($contents = $filehandler->read($filehandler->getSize())) {
 		$success = true;
 	}
 }

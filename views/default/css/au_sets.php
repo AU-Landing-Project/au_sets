@@ -13,8 +13,6 @@ form#set-post-edit #description_parent #description_ifr {
   float: right;
   padding: 4px;
   background-color: white;
-  border: 1px solid black;
-  border-radius: 4px;
   margin: 0 3px;
 }
 

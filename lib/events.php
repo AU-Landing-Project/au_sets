@@ -11,7 +11,7 @@ function pagesetup() {
 		$set = elgg_get_page_owner_entity();
 
 		if (elgg_instanceof($set, 'object', 'au_set') && $set->canEdit()) {
-			elgg_register_title_button('sets', 'edit');
+			//elgg_register_title_button('pinboards', 'edit');
 		}
 	}
 }

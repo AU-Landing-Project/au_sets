@@ -157,13 +157,16 @@ function add_widget_context($handle, $context) {
 		return false;
 	}
 
-	$widgets = elgg_get_config('widgets');
+	$widgets = _elgg_services()->widgets->getAllTypes();
+	if (isset($widgets[$handle])) {
+		$widget = $widgets[$handle];
+		$old_context = $widget->context;
+		$old_context[] = $context;
 
-	if (!in_array($context, $widgets->handlers[$handle]->context)) {
-		array_push($widgets->handlers[$handle]->context, $context);
+		$new_context = array_unique($old_context);
+		
+		elgg_register_widget_type($handle, $widget->name, $widget->description, $new_context, $widget->multiple);
 	}
-
-	elgg_set_config('widgets', $widgets);
 
 	return true;
 }

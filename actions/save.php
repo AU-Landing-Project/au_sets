@@ -4,6 +4,8 @@
  *
  */
 
+namespace AU\Sets;
+
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('au_set');
 
@@ -26,7 +28,7 @@ if ($guid) {
 	}
 
 } else {
-	$set = new ElggObject();
+	$set = new \ElggObject();
 	$set->subtype = 'au_set';
 	$new_post = TRUE;
 }
@@ -123,7 +125,7 @@ if (!$error) {
 
 		  $prefix = "pinboards/" . $set->guid;
 
-		  $filehandler = new ElggFile();
+		  $filehandler = new \ElggFile();
 		  $filehandler->owner_guid = $set->owner_guid;
 		  $filehandler->setFilename($prefix . ".jpg");
 		  $filehandler->open("write");
@@ -144,7 +146,7 @@ if (!$error) {
 		  }
 
 		  if ($thumbs['tiny']) { // just checking if resize successful
-			$thumb = new ElggFile();
+			$thumb = new \ElggFile();
 			$thumb->owner_guid = $set->owner_guid;
 			$thumb->setMimeType('image/jpeg');
 			
@@ -160,7 +162,7 @@ if (!$error) {
 		}
 		
 		if ($pin) {
-		  if (au_sets_pin_entity($pin, $set)) {
+		  if (pin_entity($pin, $set)) {
 			$name = $pin->title ? $pin->title : $pin->name;
 			system_message(elgg_echo('au_sets:autopinned', array($name)));
 		  }

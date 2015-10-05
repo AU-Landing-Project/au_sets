@@ -1,12 +1,14 @@
 <?php
 
+namespace AU\Sets;
+
 $guid = $vars['entity']->subject_guid;
 $full = $vars['entity']->full_view ? true : false;
 $set = $vars['entity']->getContainerEntity();
 
 $subject = get_entity($guid);
 if (elgg_instanceof($subject)) {
-  if (au_sets_is_pinned($subject, $set)) {
+  if (is_pinned($subject, $set)) {
 	
 	if ($full) {
 	  $title = $subject->title ? $subject->title : $subject->name;

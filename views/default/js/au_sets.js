@@ -35,6 +35,15 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
         // update widget class in real time
         elgg.au_sets.widget_save();
+        
+        if ($('.au-sets-row').length) {
+            $('.au-sets-row').each(function(index, item) {
+                var id = $(item).attr('id');
+
+                $('#'+id).css('min-height', '20px');
+                elgg.ui.widgets.setMinHeight('#' + id);
+            });
+        }
     };
 
 

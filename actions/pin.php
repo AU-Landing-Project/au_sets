@@ -1,5 +1,7 @@
 <?php
 
+namespace AU\Sets;
+
 $set_guid = get_input('set_guid');
 $entity_guid = get_input('entity_guid');
 
@@ -7,15 +9,15 @@ $set = get_entity($set_guid);
 $entity = get_entity($entity_guid);
 
 
-$error = au_sets_pin_sanity_check($entity, $set);
+$error = pin_sanity_check($entity, $set);
 
 if ($error) {
   register_error($error);
 }
-elseif (au_sets_is_pinned($entity, $set)) {
+elseif (is_pinned($entity, $set)) {
   register_error(elgg_echo('au_sets:error:existing:pin'));
 }
-elseif (au_sets_pin_entity($entity, $set)) {
+elseif (pin_entity($entity, $set)) {
   system_message(elgg_echo('au_sets:success:pinned'));
 }
 else {

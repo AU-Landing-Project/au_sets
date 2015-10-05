@@ -30,26 +30,12 @@ function entity_menu_hook($hook, $type, $return, $params) {
 			$text .= '</span>';
 		}
 
-		$pin = new ElggMenuItem('au_sets_pin', $text, '#');
+		$pin = new \ElggMenuItem('au_sets_pin', $text, '#');
 		$pin->setLinkClass('au-sets-pin');
 
 		$return[] = $pin;
 	}
 
-	// add unpin link if we're displaying the entity on a set profile
-	/*
-	  if (elgg_get_context() == 'au_sets_list') {
-
-	  $text = '<span data-guid="' . $params['entity']->getGUID() . '">';
-	  $text .= elgg_echo('au_sets:unpin');
-	  $text .= '</span>';
-	  $unpin = new ElggMenuItem('au_sets:unpin', $text, '#');
-	  $unpin->setLinkClass('au-sets-unpin');
-
-	  $return[] = $unpin;
-	  }
-	 * 
-	 */
 
 	// add link for viewing the layout if we're in read mode and can edit the set
 	if (stristr($params['class'], 'au-set-title-menu') && $params['entity']->canEdit()) {
@@ -57,15 +43,25 @@ function entity_menu_hook($hook, $type, $return, $params) {
 
 		if (!$layout_active) {
 			$url = elgg_http_add_url_query_elements(current_page_url(), array('view_layout' => 1));
-			$view_layout = new ElggMenuItem('au_sets:view_layout', elgg_echo('au_sets:view:layout'), $url);
+			$view_layout = new \ElggMenuItem('au_sets:view_layout', elgg_echo('au_sets:view:layout'), $url);
 		} else {
 			$url = elgg_http_remove_url_query_element(current_page_url(), 'view_layout');
-			$view_layout = new ElggMenuItem('au_sets:view_layout', elgg_echo('au_sets:hide:layout'), $url);
+			$view_layout = new \ElggMenuItem('au_sets:view_layout', elgg_echo('au_sets:hide:layout'), $url);
 		}
 
 		$return[] = $view_layout;
 	}
 
+	if (elgg_get_context() == 'au_sets_list') {
+		$pinboard = elgg_get_page_owner_entity();
+		if (elgg_instanceof($pinboard, 'object', 'au_set')) {
+			$text = "<span data-guid=\"{$params['entity']->guid}\">" . elgg_echo('au_sets:unpin');
+			$item = new \ElggMenuItem('unpin', $text, '#');
+			$item->setLinkClass('au-sets-unpin');
+			
+			$return[] = $item;
+		}
+	}
 	return $return;
 }
 
@@ -103,12 +99,12 @@ function pinboard_icon_url_override($hook, $type, $return, $params) {
 function owner_block_menu_hook($hook, $type, $return, $params) {
 	if (elgg_instanceof($params['entity'], 'user')) {
 		$url = "pinboards/owner/{$params['entity']->username}";
-		$item = new ElggMenuItem('set', elgg_echo('au_sets:sets'), $url);
+		$item = new \ElggMenuItem('set', elgg_echo('au_sets:sets'), $url);
 		$return[] = $item;
 	} else {
 		if ($params['entity']->sets_enable != "no") {
 			$url = "pinboards/group/{$params['entity']->guid}/all";
-			$item = new ElggMenuItem('set', elgg_echo('au_sets:group'), $url);
+			$item = new \ElggMenuItem('set', elgg_echo('au_sets:group'), $url);
 			$return[] = $item;
 		}
 	}
@@ -149,7 +145,7 @@ function permissions_check($hook, $type, $return, $params) {
 	}
 
 	// write access is set using acl nomenclature
-	$access = au_sets_get_write_accesses($user);
+	$access = get_pinboard_write_accesses($user);
 
 	// now we just look at remaining acls
 	if (in_array($set->write_access_id, $access)) {

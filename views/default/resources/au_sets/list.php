@@ -19,7 +19,8 @@ $list = elgg_list_entities_from_relationship(array(
 	'full_view' => false,
 	'limit' => 10,
 	'order_by' => 'r.time_created DESC',
-	'no_results' => elgg_echo('au_set:none')
+	'no_results' => elgg_echo('au_set:none'),
+	'list_class' => 'au-sets-pinned-list'
 		));
 
 $list .= '<div class="au-sets-guid-markup" data-set="' . $pinboard->guid . '"></div>';
