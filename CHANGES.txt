@@ -2,8 +2,9 @@
 
 x.x (mm/dd/yyyy):
 
-2.0.0 ():
+2.0.0 (10/04/2015):
  - 1.9+ upgrade
+ - general code cleanup
  - more efficient queries for friends
 
 1.9 ():
