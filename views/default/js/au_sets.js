@@ -119,7 +119,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      *
      */
     elgg.au_sets.search = function() {
-        $('.au-sets-query').on('keyup', function(e) {
+        $(document).on('keyup', '.au-sets-query', function(e) {
             var query = $(this).val();
             var guid = $(this).attr('data-guid');
             var mine = $('.au-sets-query-mine').is(':checked');
