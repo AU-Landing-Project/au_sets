@@ -106,7 +106,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      *
      */
     elgg.au_sets.closeModal = function() {
-        $('.au-sets-selector-close').on('click', function(e) {
+        $(document).on('click','.au-sets-selector-close', function(e) {
             e.preventDefault();
 
             $('.au-sets-selector').remove();
