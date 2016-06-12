@@ -17,7 +17,7 @@ elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
  */
 function init() {
 
-	elgg_extend_view('css/elgg', 'css/au_sets');
+	elgg_extend_view('elgg.css', 'css/au_sets');
 	elgg_require_js('au_sets');
 
 	//register our actions
@@ -25,8 +25,6 @@ function init() {
 	elgg_register_action("au_set/delete", __DIR__ . "/actions/delete.php");
 	elgg_register_action("au_sets/pin", __DIR__ . "/actions/pin.php");
 	elgg_register_action("au_sets/unpin", __DIR__ . "/actions/unpin.php");
-
-	elgg_register_event_handler('pagesetup', 'system', __NAMESPACE__ . '\\pagesetup');
 
 	// register page handler
 	elgg_register_page_handler('pinboards', __NAMESPACE__ . '\\pinboards_page_handler');
@@ -68,7 +66,7 @@ function init() {
 	elgg_register_widget_type('set_list', elgg_echo("au_sets:widget:set_list:title"), elgg_echo("au_sets:widget:set_list:description"), array('pinboards'), TRUE);
 	elgg_register_widget_type('set_item', elgg_echo("au_sets:widget:set_item:title"), elgg_echo("au_sets:widget:set_item:description"), array('pinboards'), TRUE);
 	elgg_register_widget_type('set_comments', elgg_echo("au_sets:widget:set_comments:title"), elgg_echo("au_sets:widget:set_comments:description"), array('pinboards'), TRUE);
-	elgg_register_widget_type('sets', elgg_echo("au_sets:widget:sets:title"), elgg_echo("au_sets:widget:sets:description"), array('profile','groups','dashboard'), TRUE);
+	elgg_register_widget_type('sets', elgg_echo("au_sets:widget:sets:title"), elgg_echo("au_sets:widget:sets:description"), array('profile','groups','dashboard'), FALSE);
 
 	add_widget_context('free_html', 'pinboards');
 	add_widget_context('tabtext', 'pinboards');
@@ -83,7 +81,7 @@ function init() {
 		add_widget_context('blog', 'pinboards');
 
 		add_widget_context('bookmarks', 'pinboards');
-		
+
 		add_widget_context('filerepo', 'pinboards');
 
 		add_widget_context('pages', 'pinboards');
@@ -111,6 +109,8 @@ function init() {
 	}
 
 	elgg_register_event_handler('upgrade', 'system', __NAMESPACE__ . '\\upgrades');
+
+	pagesetup();
 }
 
 /**
