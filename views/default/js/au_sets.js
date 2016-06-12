@@ -35,7 +35,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
         // update widget class in real time
         elgg.au_sets.widget_save();
-        
+
         if ($('.au-sets-row').length) {
             $('.au-sets-row').each(function(index, item) {
                 var id = $(item).attr('id');
@@ -54,7 +54,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      */
     elgg.au_sets.pinclick = function() {
 
-        $('.au-sets-pin').live('click', function(e) {
+        $('.au-sets-pin').on('click', function(e) {
             e.preventDefault();
 
             // remove any existing modals first - we only want one active
@@ -106,7 +106,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      *
      */
     elgg.au_sets.closeModal = function() {
-        $('.au-sets-selector-close').live('click', function(e) {
+        $('.au-sets-selector-close').on('click', function(e) {
             e.preventDefault();
 
             $('.au-sets-selector').remove();
@@ -119,7 +119,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      *
      */
     elgg.au_sets.search = function() {
-        $('.au-sets-query').live('keyup', function(e) {
+        $('.au-sets-query').on('keyup', function(e) {
             var query = $(this).val();
             var guid = $(this).attr('data-guid');
             var mine = $('.au-sets-query-mine').is(':checked');
@@ -176,7 +176,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      *
      */
     elgg.au_sets.pin = function() {
-        $('.au-set-result').live('click', function(e) {
+        $(document).on('click', '.au-set-result', function(e) {
             e.preventDefault();
 
             // only attempt pinning if it's not already pinned
@@ -233,7 +233,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
 
     elgg.au_sets.unpin = function() {
-        $('.au-sets-unpin').live('click', function(e) {
+        $(document).on('click', '.au-sets-unpin', function(e) {
             e.preventDefault();
 
             var span = $(this).children('span').eq(0);
@@ -288,7 +288,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
 
     elgg.au_sets.input = function() {
-        $('.au-set-add-new-row').live('click', function(e) {
+        $(document).on('click', '.au-set-add-new-row', function(e) {
             e.preventDefault();
             var numcols = $('.au-set-num-columns').val();
 
@@ -304,7 +304,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
 // select the single pinned item on the single pin widget
     elgg.au_sets.set_item = function() {
-        $('.au-set-item-add').live('click', function(e) {
+        $(document).on('click', '.au-set-item-add', function(e) {
             e.preventDefault();
 
             // remove any existing modals first - we only want one active
@@ -355,7 +355,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
      *
      */
     elgg.au_sets.set_item_select = function() {
-        $('.au-sets-item-search-results .au-set-item-preview').live('click', function(e) {
+        $(document).on('click', '.au-sets-item-search-results .au-set-item-preview', function(e) {
             e.preventDefault();
 
             var widget_guid = $(this).attr('data-widget');
@@ -375,7 +375,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
 
     elgg.au_sets.preview = function() {
-        $('.au-sets-preview-wrapper').live('click', function(e) {
+        $(document).on('click', '.au-sets-preview-wrapper', function(e) {
             e.preventDefault();
 
             $('.au-sets-preview-wrapper').removeClass('selected');
@@ -404,7 +404,7 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
 
     elgg.au_sets.widget_save = function() {
-        $('.elgg-form-widgets-save').live('submit', function() {
+        $('.elgg-form-widgets-save').on('submit', function() {
             var parent = $(this).parent();
             var guid = parent.attr('id').substr(12);
             var hide = true;
@@ -433,4 +433,3 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
 
     elgg.register_hook_handler('init', 'system', elgg.au_sets.init);
 });
-
