@@ -180,8 +180,8 @@ function pinboards_page_handler($page) {
 			return true;
 			break;
 		case 'add':
-			gatekeeper();
-			elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
+			elgg_gatekeeper();
+		//	elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
 			echo elgg_view('resources/au_sets/edit', array(
 				'guid' => $page[1],
 				'action_type' => 'add'
