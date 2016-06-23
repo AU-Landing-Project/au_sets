@@ -361,6 +361,13 @@ define(['require', 'jquery', 'elgg'], function(require, $, elgg) {
             var widget_guid = $(this).attr('data-widget');
             var item_guid = $(this).attr('data-item');
             var html = $(this).html();
+            var title = $(this).find('.elgg-body a:first-of-type').html();
+            // use text area to decode encoded string
+            var textArea = document.createElement('textarea');
+            textArea.innerHTML = title;
+
+            // insert the title into the widget's advanced title field
+            $("#widget-manager-widget-edit-advanced-" + widget_guid + " [name~='params[widget_manager_custom_title]'").val(textArea.value);
 
             // insert the html into the widget
             $('#au-set-item-selected-' + widget_guid).html(html);
