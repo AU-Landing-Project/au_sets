@@ -17,7 +17,7 @@ elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
  */
 function init() {
 
-	elgg_extend_view('css/elgg', 'css/au_sets');
+	elgg_extend_view('elgg.css', 'css/au_sets');
 	elgg_require_js('au_sets');
 
 	//register our actions
@@ -25,8 +25,6 @@ function init() {
 	elgg_register_action("au_set/delete", __DIR__ . "/actions/delete.php");
 	elgg_register_action("au_sets/pin", __DIR__ . "/actions/pin.php");
 	elgg_register_action("au_sets/unpin", __DIR__ . "/actions/unpin.php");
-
-	elgg_register_event_handler('pagesetup', 'system', __NAMESPACE__ . '\\pagesetup');
 
 	// register page handler
 	elgg_register_page_handler('pinboards', __NAMESPACE__ . '\\pinboards_page_handler');
@@ -83,7 +81,7 @@ function init() {
 		add_widget_context('blog', 'pinboards');
 
 		add_widget_context('bookmarks', 'pinboards');
-		
+
 		add_widget_context('filerepo', 'pinboards');
 
 		add_widget_context('pages', 'pinboards');
@@ -111,6 +109,8 @@ function init() {
 	}
 
 	elgg_register_event_handler('upgrade', 'system', __NAMESPACE__ . '\\upgrades');
+
+	pagesetup();
 }
 
 /**
@@ -180,8 +180,8 @@ function pinboards_page_handler($page) {
 			return true;
 			break;
 		case 'add':
-			gatekeeper();
-			elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
+			elgg_gatekeeper();
+		//	elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
 			echo elgg_view('resources/au_sets/edit', array(
 				'guid' => $page[1],
 				'action_type' => 'add'
