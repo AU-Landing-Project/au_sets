@@ -3,7 +3,7 @@
     <name>AU Sets</name>
     <id>au_sets</id>
     <author>Matt Beckett (matt@mattbeckett.me)</author>
-    <version type="dist">2.0.2</version>
+    <version type="dist">2.0.3</version>
     <description>Provides methods for collecting information into sets</description>
     <website>http://mattbeckett.me</website>
     <copyright>(C) Athabasca University</copyright>
