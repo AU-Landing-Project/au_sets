@@ -157,8 +157,7 @@ function permissions_check($hook, $type, $return, $params) {
 
 function widget_layout_perms($hook, $type, $return, $params) {
 	if (elgg_instanceof($params['page_owner'], 'object', 'au_set')) {
-		$preview = get_input('view_layout', false);
-		if ($params['page_owner']->canEdit($params['user']->guid) && $preview) {
+		if ($params['page_owner']->canEdit($params['user']->guid)) {
 			return true;
 		}
 	}

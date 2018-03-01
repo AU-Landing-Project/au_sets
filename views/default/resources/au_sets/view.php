@@ -43,7 +43,7 @@ if (elgg_is_active_plugin('widget_manager')) {
 $body = elgg_view_layout('one_column', array(
 	'title' => $title,
 	'content' => $menu . '<div class="au-set-widgets-wrapper">' . $content . '</div>',
-	'class' => explode(' ', $classes)
+	'class' => implode(' ', $classes)
 ));
 
 echo elgg_view_page($title, $body);
