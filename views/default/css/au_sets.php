@@ -70,7 +70,7 @@ form#set-post-edit #description_parent #description_ifr {
   background-color: white;
 }
 
-.au-set .au-set-title-menu {
+.au-set:not(.au-set-wm) .au-set-title-menu {
   margin-top: -35px;
   margin-bottom: 5px;
 }

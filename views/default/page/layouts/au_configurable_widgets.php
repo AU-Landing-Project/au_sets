@@ -63,7 +63,11 @@ echo "<div class='elgg-layout-widgets layout-widgets-" . $context . "'>";
 
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
-		echo elgg_view('page/layouts/widgets/add_button');
+		echo elgg_view('page/layouts/widgets/add_button', [
+			'context' => 'pinboards',
+			'show_access' => $show_access,
+			'exact_match' => $exact_match
+		]);
 	}
 	
 	$params = array(

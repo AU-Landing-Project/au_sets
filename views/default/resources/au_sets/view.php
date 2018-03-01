@@ -35,10 +35,15 @@ $menu = elgg_view_menu('entity', array(
 
 elgg_set_context('pinboards');
 
+$classes = ['au-set'];
+if (elgg_is_active_plugin('widget_manager')) {
+	$classes[] = 'au-set-wm';
+}
+
 $body = elgg_view_layout('one_column', array(
 	'title' => $title,
 	'content' => $menu . '<div class="au-set-widgets-wrapper">' . $content . '</div>',
-	'class' => 'au-set'
+	'class' => explode(' ', $classes)
 ));
 
 echo elgg_view_page($title, $body);

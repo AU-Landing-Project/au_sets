@@ -4,7 +4,7 @@
     "description": "Provides methods for collecting information into sets",
     "homepage": "https://github.com/AU-Landing-Project/au_sets",
     "keywords": ["elgg", "plugin", "sets", "pinboards", "pin", "AU"],
-    "license": "GPL-2.0",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Matt Beckett"
